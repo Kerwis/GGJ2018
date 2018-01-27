@@ -16,17 +16,34 @@ namespace Satelites
         public Texture2D globeTexture;
         SatMenager SM;
         Color32[] newTex;
+        private void OnEnable()
+        {
+            SatMenager.Instance.OnMineSateliteCreate.AddListener(TurnDraw);
+            SatMenager.Instance.OnOpponentSateliteCreate.AddListener(TurnDraw);
+        }
+        private void OnDisable()
+        {
+            SatMenager.Instance.OnMineSateliteCreate.RemoveListener(TurnDraw);
+            SatMenager.Instance.OnOpponentSateliteCreate.RemoveListener(TurnDraw);
+        }
         private void Start()
         {
             newTex = globeTexture.GetPixels32();
             Debug.Log(newTex.Length);
             SM = SatMenager.Instance;
+            
             //MainController.NextTurn +=  
             //OnTurnEnd.AddListener(drawTris);
         }
         void TurnDraw()
         {
-            
+            dontRedrawThisMine.Clear();
+            dontRedrawThisOpp.Clear();
+            newTex = copy.GetPixels32();
+            globeTexture.SetPixels32(newTex);
+            IterateTris();
+            globeTexture.SetPixels32(newTex);
+            globeTexture.Apply();
 
         }
 
