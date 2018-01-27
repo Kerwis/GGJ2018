@@ -7,9 +7,11 @@ namespace Satelites
 {
     public class TrianglePainter : MonoBehaviour
     {
-        List<Vector3> dontRedrawThis = new List<Vector3>();
+        List<Vector3> dontRedrawThisMine = new List<Vector3>();
+        List<Vector3> dontRedrawThisOpp = new List<Vector3>();
 
         public Color mineColor;
+        public Color enemyColor;
         public Texture2D copy;
         public Texture2D globeTexture;
         SatMenager SM;
@@ -27,10 +29,13 @@ namespace Satelites
             {
                 
                 IterateTris();
+                globeTexture.SetPixels32(newTex);
+                globeTexture.Apply();
             }
             if (Input.GetKeyDown(KeyCode.C))
             {
-                dontRedrawThis.Clear();
+                dontRedrawThisMine.Clear();
+                dontRedrawThisOpp.Clear();
                 newTex = copy.GetPixels32();
                 globeTexture.SetPixels32(newTex);
                 globeTexture.Apply();
@@ -40,10 +45,10 @@ namespace Satelites
 
         void IterateTris()
         {
-            //Debug.Log(SM.MineSateliteCounter);
+            //MOJE
             if (SM.MineSateliteCounter < 3)
             {
-                Debug.Log("below 3 = "+SM.MineSateliteCounter);
+                Debug.Log("me below 3 = "+SM.MineSateliteCounter);
                 return;
             }
 
@@ -54,52 +59,96 @@ namespace Satelites
                     for (int k = j+1; k < SM.MineSateliteCounter; k++)
                     {
                         
-                        DrawTris(i,j,k);
+                        DrawTris(i,j,k,true);
                         
                     }
                 }
             }
-        }
-
-        private void DrawTris(int q, int w, int e)
-        {
-            Vector2[] bigThree = new Vector2[] { SM.MineSatelitesPool[q].cords, SM.MineSatelitesPool[w].cords, SM.MineSatelitesPool[e].cords };
-
-            //check for enemy
-
-            for(int i = 0; i < SM.OpponentSateliteCounter - 1; i++)
+            //Przeciwnik
+            if (SM.OpponentSateliteCounter < 3)
             {
-                if (IsPointInPolygon(SM.OpponentSatelitesPool[i].cords, bigThree))
+                Debug.Log("en below 3 = " + SM.OpponentSateliteCounter);
+                return;
+            }
+
+            for (int i = 0; i < SM.OpponentSateliteCounter; i++)
+            {
+                for (int j = i + 1; j < SM.OpponentSateliteCounter; j++)
                 {
-                    Debug.Log("enemy");
-                    //remove from dont redraw
-                    if(dontRedrawThis.Contains(new Vector3(q, w, e)));
-                        dontRedrawThis.Remove(new Vector3(q, w, e));
-                    return;
+                    for (int k = j + 1; k < SM.OpponentSateliteCounter; k++)
+                    {
+
+                        DrawTris(i, j, k,false);
+
+                    }
                 }
             }
-            //check if drawen
-            if(dontRedrawThis.Contains(new Vector3(q, w, e)))
-                return;
-                //no enemy? Draw AND SAVE
-            dontRedrawThis.Add(new Vector3(q, w, e));
-            //Vector2[] vv = 
-            SetupPaintedArray(bigThree);
-            /*
-            Debug.Log(vv.Length);
-            foreach (Vector2 v in vv)
+
+            //rysuj
+            
+        }
+
+        private void DrawTris(int q, int w, int e,bool me)
+        {
+            if (me)
             {
-                
-                globeTexture.SetPixel((int)v.x, (int)v.y, mineColor);
-            }*/
-            globeTexture.SetPixels32(newTex);
-            globeTexture.Apply();
+                Vector2[] bigThree = new Vector2[] { SM.MineSatelitesPool[q].cords, SM.MineSatelitesPool[w].cords, SM.MineSatelitesPool[e].cords };
+
+                //check for enemy
+
+                for (int i = 0; i < SM.OpponentSateliteCounter; i++)
+                {
+
+                    if (IsPointInPolygon(SM.OpponentSatelitesPool[i].cords, bigThree))
+                    {
+                        Debug.Log("enemy");
+                        //remove from dont redraw
+                        if (dontRedrawThisMine.Contains(new Vector3(q, w, e))) ;
+                        dontRedrawThisMine.Remove(new Vector3(q, w, e));
+                        return;
+                    }
+                }
+                //check if drawen
+                if (dontRedrawThisMine.Contains(new Vector3(q, w, e)))
+                    return;
+                //no enemy? Draw AND SAVE
+                dontRedrawThisMine.Add(new Vector3(q, w, e));
+                //Vector2[] vv = 
+                SetupPaintedArray(bigThree,mineColor);
+            }
+            else
+            {
+                Vector2[] bigThree = new Vector2[] { SM.OpponentSatelitesPool[q].cords, SM.OpponentSatelitesPool[w].cords, SM.OpponentSatelitesPool[e].cords };
+
+                //check for enemy
+
+                for (int i = 0; i < SM.MineSateliteCounter; i++)
+                {
+
+                    if (IsPointInPolygon(SM.MineSatelitesPool[i].cords, bigThree))
+                    {
+                        Debug.Log("enemy");
+                        //remove from dont redraw
+                        if (dontRedrawThisOpp.Contains(new Vector3(q, w, e))) ;
+                        dontRedrawThisOpp.Remove(new Vector3(q, w, e));
+                        return;
+                    }
+                }
+                //check if drawen
+                if (dontRedrawThisOpp.Contains(new Vector3(q, w, e)))
+                    return;
+                //no enemy? Draw AND SAVE
+                dontRedrawThisOpp.Add(new Vector3(q, w, e));
+                //Vector2[] vv = 
+                SetupPaintedArray(bigThree,enemyColor);
+            }
+            
 
         }
 
-        private void SetupPaintedArray(Vector2[] trio)
+        private void SetupPaintedArray(Vector2[] trio,Color c)
         {
-            List<Vector2> ListToPaint = new List<Vector2>();
+            //List<Vector2> ListToPaint = new List<Vector2>();
             float minX = trio[0].x;if (minX > trio[1].x) minX = trio[1].x; if (minX > trio[2].x) minX = trio[2].x;
             float minY = trio[0].y; if (minY > trio[1].y) minY = trio[1].y; if (minY > trio[2].y) minY = trio[2].y;
             float maxX = trio[0].x; if (maxX < trio[1].x) maxX = trio[1].x; if (maxX < trio[2].x) maxX = trio[2].x;
@@ -139,7 +188,7 @@ namespace Satelites
                             v= new Vector2(i, j- globeTexture.width);
                         if (IsPointInPolygon(v, trio))
                         {
-                            newTex[(int)v.y * globeTexture.height + (int)v.x] = mineColor;
+                            newTex[(int)v.y * globeTexture.height + (int)v.x] = c;
 
                         }
 

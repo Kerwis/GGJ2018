@@ -59,12 +59,19 @@ namespace Satelites
             OnOpponentSateliteDestroy.AddListener(DestroyOpponentSatelite);
             #endregion
         }
-
+        private void Start()
+        {
+           
+        }
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Space) && OnMineSateliteCreate != null)
             {
                 OnMineSateliteCreate.Invoke();
+            }
+            if (Input.GetKeyDown(KeyCode.O) && OnMineSateliteCreate != null)
+            {
+                OnOpponentSateliteCreate.Invoke();
             }
         }
         void CreateMineSatelite()
@@ -74,11 +81,11 @@ namespace Satelites
             
             MineSateliteCounter++;
             MineSatelitesPool[MineSateliteCounter - 1].gameObject.SetActive(true);
-            SetupMineSatelite(MineSatelitesPool[MineSateliteCounter - 1]);
+            SetupSatelite(MineSatelitesPool[MineSateliteCounter - 1]);
             
         }
 
-        private void SetupMineSatelite(Satelite sat)
+        private void SetupSatelite(Satelite sat)
         {
             sat.transform.parent.transform.rotation = Aim.transform.rotation;
             sat.Setup();
@@ -106,6 +113,7 @@ namespace Satelites
 
             OpponentSateliteCounter++;
             OpponentSatelitesPool[OpponentSateliteCounter - 1].gameObject.SetActive(true);
+            SetupSatelite(OpponentSatelitesPool[OpponentSateliteCounter - 1]);
         }
         void DestroyOpponentSatelite()
         {
