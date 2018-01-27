@@ -17,6 +17,10 @@ public class InGameManager : MonoBehaviour {
     int sateliteEarnings = 1;
     int areaEarningsRatio = 1;
 
+    private void OnEnable()
+    {
+        MainController.NextTurn+=GetPaid;
+    }
     //eventy
     public void UpdateEarnings()
     {
@@ -44,6 +48,10 @@ public class InGameManager : MonoBehaviour {
 
     }
 
+    void GetPaid(int nrTurn)
+    {
+        myCash = +myEarnings;
+    }
 
 
     void Win()

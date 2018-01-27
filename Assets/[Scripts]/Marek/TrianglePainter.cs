@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Satelites
 {
-    public class TrianglePainter : MonoBehaviour
+    public class TrianglePainter : Singleton<TrianglePainter>
     {
         List<Vector3> dontRedrawThisMine = new List<Vector3>();
         List<Vector3> dontRedrawThisOpp = new List<Vector3>();
@@ -16,15 +16,20 @@ namespace Satelites
         public Texture2D globeTexture;
         SatMenager SM;
         Color32[] newTex;
+
+        public TrianglePainter()
+        {
+        }
+
         private void OnEnable()
         {
-            SatMenager.Instance.OnMineSateliteCreate.AddListener(TurnDraw);
-            SatMenager.Instance.OnOpponentSateliteCreate.AddListener(TurnDraw);
+            //SatMenager.Instance.OnMineSateliteCreate.AddListener(TurnDraw);
+            //SatMenager.Instance.OnOpponentSateliteCreate.AddListener(TurnDraw);
         }
         private void OnDisable()
         {
-            SatMenager.Instance.OnMineSateliteCreate.RemoveListener(TurnDraw);
-            SatMenager.Instance.OnOpponentSateliteCreate.RemoveListener(TurnDraw);
+            //SatMenager.Instance.OnMineSateliteCreate.RemoveListener(TurnDraw);
+            //SatMenager.Instance.OnOpponentSateliteCreate.RemoveListener(TurnDraw);
         }
         private void Start()
         {
@@ -35,7 +40,7 @@ namespace Satelites
             //MainController.NextTurn +=  
             //OnTurnEnd.AddListener(drawTris);
         }
-        void TurnDraw()
+        public void TurnDraw()
         {
             dontRedrawThisMine.Clear();
             dontRedrawThisOpp.Clear();

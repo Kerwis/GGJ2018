@@ -69,6 +69,7 @@ namespace Satelites
         {
             if (Input.GetKeyDown(KeyCode.Space) && OnMineSateliteCreate != null)
             {
+                Debug.Log(MineSateliteCounter);
                 OnMineSateliteCreate.Invoke();
             }
             if (Input.GetKeyDown(KeyCode.O) && OnMineSateliteCreate != null)
@@ -84,6 +85,7 @@ namespace Satelites
             MineSateliteCounter++;
             MineSatelitesPool[MineSateliteCounter - 1].gameObject.SetActive(true);
             SetupSatelite(MineSatelitesPool[MineSateliteCounter - 1]);
+            TrianglePainter.Instance.TurnDraw();
             
         }
 
@@ -116,6 +118,7 @@ namespace Satelites
             OpponentSateliteCounter++;
             OpponentSatelitesPool[OpponentSateliteCounter - 1].gameObject.SetActive(true);
             SetupSatelite(OpponentSatelitesPool[OpponentSateliteCounter - 1]);
+            TrianglePainter.Instance.TurnDraw();
         }
         void DestroyOpponentSatelite()
         {
