@@ -12,10 +12,13 @@ namespace Satelites
         public Color mineColor;
         public Texture2D globeTexture;
         SatMenager SM;
-        Color[] oldTex;
+        Color32[] oldTex;
+        Color32[] newTex;
         private void Start()
         {
-            oldTex = globeTexture.GetPixels();
+            oldTex = globeTexture.GetPixels32();
+            newTex = oldTex;
+            Debug.Log(newTex.Length);
             SM = SatMenager.Instance;
             //OnTurnEnd.AddListener(drawTris);
         }
@@ -27,7 +30,7 @@ namespace Satelites
             }
             if (Input.GetKeyDown(KeyCode.C))
             {
-                globeTexture.SetPixels(oldTex);
+                globeTexture.SetPixels32(oldTex);
                 globeTexture.Apply();
             }
             //OnTurnEnd.AddListener(drawTris);
@@ -82,12 +85,14 @@ namespace Satelites
                 //no enemy? Draw AND SAVE
             dontRedrawThis.Add(new Vector3(q, w, e));
             Vector2[] vv = SetupPaintedArray(bigThree);
+
             Debug.Log(vv.Length);
             foreach (Vector2 v in SetupPaintedArray(bigThree))
             {
                 
-                globeTexture.SetPixel((int)v.x, (int)v.y, mineColor);
+                //globeTexture.SetPixel((int)v.x, (int)v.y, mineColor);
             }
+            globeTexture.SetPixels32(newTex);
             globeTexture.Apply();
 
         }
@@ -107,8 +112,8 @@ namespace Satelites
                     Vector2 v = new Vector2(i, j);
                     if (IsPointInPolygon(v, trio))
                     {
-                        
-                        ListToPaint.Add(v);
+                        newTex[(int)v.y * globeTexture.height + (int)v.x] = mineColor;
+                           // ListToPaint.Add(v);
                     } 
                         
                 }
