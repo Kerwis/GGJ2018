@@ -10,14 +10,13 @@ namespace Satelites
         List<Vector3> dontRedrawThis = new List<Vector3>();
 
         public Color mineColor;
+        public Texture2D copy;
         public Texture2D globeTexture;
         SatMenager SM;
-        Color32[] oldTex;
         Color32[] newTex;
         private void Start()
         {
-            oldTex = globeTexture.GetPixels32();
-            newTex = oldTex;
+            newTex = globeTexture.GetPixels32();
             Debug.Log(newTex.Length);
             SM = SatMenager.Instance;
             //OnTurnEnd.AddListener(drawTris);
@@ -26,12 +25,14 @@ namespace Satelites
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
-                newTex = oldTex;
+                
                 IterateTris();
             }
             if (Input.GetKeyDown(KeyCode.C))
             {
-                globeTexture.SetPixels32(oldTex);
+                dontRedrawThis.Clear();
+                newTex = copy.GetPixels32();
+                globeTexture.SetPixels32(newTex);
                 globeTexture.Apply();
             }
             //OnTurnEnd.AddListener(drawTris);
@@ -198,6 +199,12 @@ namespace Satelites
             }
             return inside;
         }
-        
+        private void OnApplicationQuit()
+        {
+            newTex = copy.GetPixels32();
+            globeTexture.SetPixels32(newTex);
+            globeTexture.Apply();
+        }
+
     }
 }
