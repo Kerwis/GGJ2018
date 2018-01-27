@@ -47,12 +47,14 @@ public class MainController : MonoBehaviour
 		}
 		if (Input.GetKey((KeyCode)Stering.Keys.Up))
 		{
-			//TODO	ruch celownika
-		}
+            //TODO	ruch celownika
+            _centerTargetRotation.x += _rotationFactor * _rotationSpeedY;
+        }
 		if (Input.GetKey((KeyCode)Stering.Keys.Down))
 		{
-			//TODO rruch celownika
-		}
+            //TODO rruch celownika
+            _centerTargetRotation.x += -_rotationFactor * _rotationSpeedY;
+        }
 
 		_centerCurrentRotation	= Vector3.SmoothDamp(_centerCurrentRotation, _centerTargetRotation, ref _rotationSpeed, Time.smoothDeltaTime);
 		_mainCameraCenter.transform.eulerAngles = _centerCurrentRotation;
