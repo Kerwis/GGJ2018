@@ -7,11 +7,15 @@ namespace Satelites
 {
     public class TrianglePainter : MonoBehaviour
     {
-        public Color mineColor=Color.red;
+        List<Vector3> dontRedrawThis = new List<Vector3>();
+
+        public Color mineColor;
         public Texture2D globeTexture;
         SatMenager SM;
+        Color[] oldTex;
         private void Start()
         {
+            oldTex = globeTexture.GetPixels();
             SM = SatMenager.Instance;
             //OnTurnEnd.AddListener(drawTris);
         }
@@ -20,6 +24,11 @@ namespace Satelites
             if (Input.GetKeyDown(KeyCode.E))
             {
                 IterateTris();
+            }
+            if (Input.GetKeyDown(KeyCode.C))
+            {
+                globeTexture.SetPixels(oldTex);
+                globeTexture.Apply();
             }
             //OnTurnEnd.AddListener(drawTris);
         }
@@ -40,16 +49,16 @@ namespace Satelites
                     for (int k = j+1; k < SM.MineSateliteCounter; k++)
                     {
                         
-                        DrawTris(SM.MineSatelitesPool[i], SM.MineSatelitesPool[j], SM.MineSatelitesPool[k]);
+                        DrawTris(i,j,k);
                         
                     }
                 }
             }
         }
 
-        private void DrawTris(Satelite p1,Satelite p2,Satelite p3)
+        private void DrawTris(int q, int w, int e)
         {
-            Vector2[] bigThree = new Vector2[] {p1.cords,p2.cords,p3.cords};
+            Vector2[] bigThree = new Vector2[] { SM.MineSatelitesPool[q].cords, SM.MineSatelitesPool[w].cords, SM.MineSatelitesPool[e].cords };
 
             //check for enemy
 
@@ -58,15 +67,25 @@ namespace Satelites
                 if (IsPointInPolygon(SM.OpponentSatelitesPool[i].cords, bigThree))
                 {
                     Debug.Log("enemy");
+                    //remove from dont redraw
+                    if(dontRedrawThis.Contains(new Vector3(q, w, e)));
+                    dontRedrawThis.Remove(new Vector3(q, w, e));
                     return;
                 }
             }
-
-            //no enemy? Draw 
+            //check if drawen
+            foreach(Vector3 v in dontRedrawThis)
+            {
+                if (v == new Vector3(q, w, e))
+                    return;
+            }
+                //no enemy? Draw AND SAVE
+            dontRedrawThis.Add(new Vector3(q, w, e));
             Vector2[] vv = SetupPaintedArray(bigThree);
             Debug.Log(vv.Length);
             foreach (Vector2 v in SetupPaintedArray(bigThree))
             {
+                
                 globeTexture.SetPixel((int)v.x, (int)v.y, mineColor);
             }
             globeTexture.Apply();
@@ -86,8 +105,12 @@ namespace Satelites
                 for(int j = (int)minY; j < (int)maxY; j++)
                 {
                     Vector2 v = new Vector2(i, j);
-                    if (IsPointInPolygon(v, trio)) ;
-                    ListToPaint.Add(v);
+                    if (IsPointInPolygon(v, trio))
+                    {
+                        
+                        ListToPaint.Add(v);
+                    } 
+                        
                 }
             }
             Vector2[] arrayToPaint = new Vector2[ListToPaint.Count];
@@ -122,5 +145,6 @@ namespace Satelites
             }
             return inside;
         }
+        
     }
 }

@@ -39,11 +39,11 @@ public class MainController : MonoBehaviour
 	{
 		if (Input.GetKey((KeyCode)Stering.Keys.Left))
 		{
-			_centerTargetRotation.y += -_rotationFactor * _rotationSpeedX;
+			_centerTargetRotation.y += _rotationFactor * _rotationSpeedX;
 		}
 		if (Input.GetKey((KeyCode)Stering.Keys.Right))
 		{
-			_centerTargetRotation.y += _rotationFactor * _rotationSpeedX;
+			_centerTargetRotation.y += -_rotationFactor * _rotationSpeedX;
 		}
 		if (Input.GetKey((KeyCode)Stering.Keys.Up))
 		{
