@@ -21,8 +21,15 @@ namespace Satelites
             newTex = globeTexture.GetPixels32();
             Debug.Log(newTex.Length);
             SM = SatMenager.Instance;
+            //MainController.NextTurn +=  
             //OnTurnEnd.AddListener(drawTris);
         }
+        void TurnDraw()
+        {
+            
+
+        }
+
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.E))
