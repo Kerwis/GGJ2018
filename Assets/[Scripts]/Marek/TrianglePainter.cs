@@ -84,47 +84,71 @@ namespace Satelites
             }
                 //no enemy? Draw AND SAVE
             dontRedrawThis.Add(new Vector3(q, w, e));
-            Vector2[] vv = SetupPaintedArray(bigThree);
-
+            //Vector2[] vv = 
+            SetupPaintedArray(bigThree);
+            /*
             Debug.Log(vv.Length);
-            foreach (Vector2 v in SetupPaintedArray(bigThree))
+            foreach (Vector2 v in vv)
             {
                 
-                //globeTexture.SetPixel((int)v.x, (int)v.y, mineColor);
-            }
+                globeTexture.SetPixel((int)v.x, (int)v.y, mineColor);
+            }*/
             globeTexture.SetPixels32(newTex);
             globeTexture.Apply();
 
         }
 
-        private Vector2[] SetupPaintedArray(Vector2[] trio)
+        private void SetupPaintedArray(Vector2[] trio)
         {
             List<Vector2> ListToPaint = new List<Vector2>();
             float minX = trio[0].x;if (minX > trio[1].x) minX = trio[1].x; if (minX > trio[2].x) minX = trio[2].x;
             float minY = trio[0].y; if (minY > trio[1].y) minY = trio[1].y; if (minY > trio[2].y) minY = trio[2].y;
             float maxX = trio[0].x; if (maxX < trio[1].x) maxX = trio[1].x; if (maxX < trio[2].x) maxX = trio[2].x;
             float maxY = trio[0].y; if (maxY < trio[1].y) maxY = trio[1].y; if (maxY < trio[2].y) maxY = trio[2].y;
-            Debug.Log(minX+" " + maxX + " " + minY + " " + maxY);
-            for(int i = (int)minX; i < (int)maxX; i++)
+            //Debug.Log(minX+" " + maxX + " " + minY + " " + maxY);
+            if (maxX - minX < globeTexture.width / 2)
             {
-                for(int j = (int)minY; j < (int)maxY; j++)
+                for (int i = (int)minX; i < (int)maxX; i++)
                 {
-                    Vector2 v = new Vector2(i, j);
-                    if (IsPointInPolygon(v, trio))
+                    for (int j = (int)minY; j < (int)maxY; j++)
                     {
-                        newTex[(int)v.y * globeTexture.height + (int)v.x] = mineColor;
-                           // ListToPaint.Add(v);
-                    } 
-                        
+                        Vector2 v = new Vector2(i, j);
+                        if (IsPointInPolygon(v, trio))
+                        {
+                            newTex[(int)v.y * globeTexture.height + (int)v.x] = mineColor;
+
+                        }
+
+                    }
                 }
             }
-            Vector2[] arrayToPaint = new Vector2[ListToPaint.Count];
+            else
+            {
+                for (int i = (int)maxX; i < (int)minX+globeTexture.width; i++)
+                {
+                    for (int j = (int)minY; j < (int)maxY; j++)
+                    {
+                        int tempI = i;
+                        if (tempI > globeTexture.width)
+                            tempI -= globeTexture.width;
+
+                        Vector2 v = new Vector2(tempI, j);
+                        if (IsPointInPolygon(v, trio))
+                        {
+                            newTex[(int)v.y * globeTexture.height + (int)v.x] = mineColor;
+
+                        }
+
+                    }
+                }
+            }
+            /*Vector2[] arrayToPaint = new Vector2[ListToPaint.Count];
             for (int i = 0; i < ListToPaint.Count; i++)
-                arrayToPaint[i] = ListToPaint[i];
+                arrayToPaint[i] = ListToPaint[i];*/
 
 
 
-            return arrayToPaint;
+            //return arrayToPaint;
         }
 
         public bool IsPointInPolygon(Vector2 point, Vector2[] polygon)
@@ -144,9 +168,30 @@ namespace Satelites
                 endPoint = polygon[i++];
                 endX = endPoint.x; endY = endPoint.y;
                 //
-                inside ^= (endY > pointY ^ startY > pointY) /* ? pointY inside [startY;endY] segment ? */
-                          && /* if so, test if it is under the segment */
-                          ((pointX - endX) < (pointY - endY) * (startX - endX) / (startY - endY));
+                if (Mathf.Abs(endX - startX) < globeTexture.width/2)
+                {
+                    inside ^= (endY > pointY ^ startY > pointY) /* ? pointY inside [startY;endY] segment ? */
+                              && /* if so, test if it is under the segment */
+                              ((pointX - endX) < (pointY - endY) * (startX - endX) / (startY - endY));
+                }
+                else
+                {
+                    if(startX< globeTexture.width/2)
+                        startX += globeTexture.width;
+                    else
+                        endX += globeTexture.width;
+
+                    if (pointX < globeTexture.width / 2)
+                        pointX += globeTexture.width;
+                    inside ^= (endY > pointY ^ startY > pointY) /* ? pointY inside [startY;endY] segment ? */
+                              && /* if so, test if it is under the segment */
+                              ((pointX - endX) < (pointY - endY) * (startX - endX) / (startY - endY));
+                    if (startX > globeTexture.width)
+                        startX -= globeTexture.width;
+                    else
+                        endX -= globeTexture.width;
+                }
+                
             }
             return inside;
         }
