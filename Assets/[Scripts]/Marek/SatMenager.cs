@@ -10,34 +10,35 @@ namespace Satelites
         [SerializeField]
         public GameObject Aim;
 
-        public List<GameObject> MineSatelitesPool;
-        int MineSateliteCounter;
-        public List<GameObject> OpponentSatelitesPool;
-        int OpponentSateliteCounter;
+        public List<Satelite> MineSatelitesPool;
+        [HideInInspector]
+        public int MineSateliteCounter;
+        public List<Satelite> OpponentSatelitesPool;
+        [HideInInspector]
+        public int OpponentSateliteCounter;
 
-        GameObject satToDestroy = null;
+        Satelite satToDestroy = null;
 
-        UnityEvent OnMineSateliteCreate;
-        UnityEvent OnMineSateliteDestroy;
-        UnityEvent OnOpponentSateliteCreate;
-        UnityEvent OnOpponentSateliteDestroy;
+        public UnityEvent OnMineSateliteCreate;
+        public UnityEvent OnMineSateliteDestroy;
+        public UnityEvent OnOpponentSateliteCreate;
+        public UnityEvent OnOpponentSateliteDestroy;
 
-        public SatMenager()
-        {
-        }
+        public SatMenager() { }
+        
 
         private void OnEnable()
         {
             MineSateliteCounter = 0;
             OpponentSateliteCounter = 0;
 
-            foreach (GameObject o in MineSatelitesPool)
+            foreach (Satelite o in MineSatelitesPool)
             {
-                o.SetActive(false);
+                o.gameObject.SetActive(false);
             }
-            foreach (GameObject o in OpponentSatelitesPool)
+            foreach (Satelite o in OpponentSatelitesPool)
             {
-                o.SetActive(false);
+                o.gameObject.SetActive(false);
             }
 
             #region EventsInit
@@ -70,15 +71,17 @@ namespace Satelites
         {
             if (MineSateliteCounter == MineSatelitesPool.Count)
                 return;
-
+            
             MineSateliteCounter++;
-            MineSatelitesPool[MineSateliteCounter - 1].SetActive(true);
+            MineSatelitesPool[MineSateliteCounter - 1].gameObject.SetActive(true);
             SetupMineSatelite(MineSatelitesPool[MineSateliteCounter - 1]);
+            
         }
 
-        private void SetupMineSatelite(GameObject sat)
+        private void SetupMineSatelite(Satelite sat)
         {
-            sat.transform.rotation = Aim.transform.rotation;
+            sat.transform.parent.transform.rotation = Aim.transform.rotation;
+            sat.Setup();
         }
 
         void DestroyMineSatelite()
@@ -102,7 +105,7 @@ namespace Satelites
                 return;
 
             OpponentSateliteCounter++;
-            OpponentSatelitesPool[OpponentSateliteCounter - 1].SetActive(true);
+            OpponentSatelitesPool[OpponentSateliteCounter - 1].gameObject.SetActive(true);
         }
         void DestroyOpponentSatelite()
         {
@@ -127,7 +130,7 @@ namespace Satelites
             OnOpponentSateliteDestroy.RemoveListener(DestroyOpponentSatelite);
         }
 
-        public void DestroySatelite(GameObject satToDestroy)
+        public void DestroySatelite(Satelite satToDestroy)
         {
             this.satToDestroy = satToDestroy;
             if (OpponentSatelitesPool.Contains(satToDestroy))
