@@ -49,7 +49,7 @@ public class MainController : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		if (PhotonNetwork.isMasterClient)
+		if (PhotonNetwork.isMasterClient|| !PhotonNetwork.connected)
 		{
 			if (Time.realtimeSinceStartup > _lastTimeUpdate + _turnTime)
 			{
