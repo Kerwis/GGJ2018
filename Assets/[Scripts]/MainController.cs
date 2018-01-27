@@ -9,8 +9,14 @@ public class MainController : MonoBehaviour
 	public static Action<int> NextTurn;
 	public float _rotationFactor = 1f;
 
-	[SerializeField] private float _turnTime = 1f;
-	[SerializeField] private GameObject _mainCameraCenter;
+	[SerializeField] 
+	private float _turnTime = 1f;
+	[SerializeField]
+	private GameObject _mainCameraCenter;
+	[SerializeField] 
+	private GameObject _aimPoint;
+	[SerializeField] 
+	private PhotonView myView;
 
 	private float _lastTimeUpdate = Single.MinValue;
 	private int _turnCounter;
@@ -19,15 +25,20 @@ public class MainController : MonoBehaviour
 	
 	private Vector3 _centerCurrentRotation;
 	private Vector3 _centerTargetRotation;
+	
+	private Vector3 _centerAimCurrentRotation;
+	private Vector3 _centerAimTargetRotation;
+	
 
 	private Vector3 _rotationSpeed;
+	private Vector3 _rotationAimSpeed;
+	
 
 	// Use this for initialization
 	void Start()
 	{
+		
 		NextTurn += HandleNextTurn;
-		_centerCurrentRotation = _mainCameraCenter.transform.eulerAngles;
-		_centerTargetRotation = _centerCurrentRotation;
 	}
 
 	private void HandleNextTurn(int TurnNumber)
@@ -39,25 +50,40 @@ public class MainController : MonoBehaviour
 	{
 		if (Input.GetKey((KeyCode)Stering.Keys.Left))
 		{
-			_centerTargetRotation.y += _rotationFactor * _rotationSpeedX;
+			_centerTargetRotation.y = _rotationFactor * _rotationSpeedX;
 		}
 		if (Input.GetKey((KeyCode)Stering.Keys.Right))
 		{
-			_centerTargetRotation.y += -_rotationFactor * _rotationSpeedX;
+			_centerTargetRotation.y = -_rotationFactor * _rotationSpeedX;
 		}
 		if (Input.GetKey((KeyCode)Stering.Keys.Up))
 		{
-            //TODO	ruch celownika
-            _centerTargetRotation.x += _rotationFactor * _rotationSpeedY;
+			_centerAimTargetRotation.x = _rotationFactor * _rotationSpeedY;
         }
 		if (Input.GetKey((KeyCode)Stering.Keys.Down))
 		{
-            //TODO rruch celownika
-            _centerTargetRotation.x += -_rotationFactor * _rotationSpeedY;
+			_centerAimTargetRotation.x = -_rotationFactor * _rotationSpeedY;
         }
 
 		_centerCurrentRotation	= Vector3.SmoothDamp(_centerCurrentRotation, _centerTargetRotation, ref _rotationSpeed, Time.smoothDeltaTime);
-		_mainCameraCenter.transform.eulerAngles = _centerCurrentRotation;
+		_centerAimCurrentRotation = Vector3.SmoothDamp(_centerAimCurrentRotation, _centerAimTargetRotation,
+			ref _rotationAimSpeed, Time.smoothDeltaTime);
+		
+		
+		_aimPoint.transform.Rotate(_centerAimCurrentRotation);
+		_mainCameraCenter.transform.Rotate(_centerCurrentRotation);
+
+		if (_centerCurrentRotation.AlmostEquals(_centerTargetRotation, 1f))
+		{
+			_centerCurrentRotation = Vector3.zero;
+			_centerTargetRotation = Vector3.zero;
+		}
+		
+		if (_centerAimCurrentRotation.AlmostEquals(_centerAimTargetRotation, 1f))
+		{
+			_centerAimCurrentRotation = Vector3.zero;
+			_centerAimTargetRotation = Vector3.zero;
+		}
 		
 	}
 	
@@ -67,13 +93,16 @@ public class MainController : MonoBehaviour
 		
 		HandleCamera();
 
-		//TODO check is master server
-		if (Time.realtimeSinceStartup > _lastTimeUpdate + _turnTime)
+		if (PhotonNetwork.isMasterClient)
 		{
-			_turnCounter++;
-			if (NextTurn != null)
-				NextTurn(_turnCounter);
-			_lastTimeUpdate = Time.realtimeSinceStartup;
+			if (Time.realtimeSinceStartup > _lastTimeUpdate + _turnTime)
+			{
+				_turnCounter++;
+				if (NextTurn != null)
+					NextTurn(_turnCounter);
+				//TODO send RPC
+				_lastTimeUpdate = Time.realtimeSinceStartup;
+			}
 		}
 	}
 }

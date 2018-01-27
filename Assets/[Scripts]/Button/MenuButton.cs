@@ -88,7 +88,10 @@ public class MenuButton : MonoBehaviour
 	
 	private void StartGame()
 	{
-		MultiMenu.Instance.StartGame();
+		if (PhotonNetwork.isMasterClient)
+		{
+			PhotonNetwork.LoadLevel("main");
+		}
 	}
 
 	protected virtual void ChangePawn()
