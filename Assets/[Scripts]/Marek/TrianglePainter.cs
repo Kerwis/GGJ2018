@@ -26,6 +26,7 @@ namespace Satelites
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
+                newTex = oldTex;
                 IterateTris();
             }
             if (Input.GetKeyDown(KeyCode.C))
@@ -72,16 +73,13 @@ namespace Satelites
                     Debug.Log("enemy");
                     //remove from dont redraw
                     if(dontRedrawThis.Contains(new Vector3(q, w, e)));
-                    dontRedrawThis.Remove(new Vector3(q, w, e));
+                        dontRedrawThis.Remove(new Vector3(q, w, e));
                     return;
                 }
             }
             //check if drawen
-            foreach(Vector3 v in dontRedrawThis)
-            {
-                if (v == new Vector3(q, w, e))
-                    return;
-            }
+            if(dontRedrawThis.Contains(new Vector3(q, w, e)))
+                return;
                 //no enemy? Draw AND SAVE
             dontRedrawThis.Add(new Vector3(q, w, e));
             //Vector2[] vv = 
@@ -124,15 +122,20 @@ namespace Satelites
             }
             else
             {
-                for (int i = (int)maxX; i < (int)minX+globeTexture.width; i++)
+                for (int i=0; i<3;i++) {
+                    if (trio[i].x < globeTexture.width / 2)
+                        trio[i].x += globeTexture.width;
+                }
+                minX = trio[0].x; if (minX > trio[1].x) minX = trio[1].x; if (minX > trio[2].x) minX = trio[2].x;
+                maxX = trio[0].x; if (maxX < trio[1].x) maxX = trio[1].x; if (maxX < trio[2].x) maxX = trio[2].x;
+
+                for (int i = (int)minX; i < (int)maxX; i++)
                 {
                     for (int j = (int)minY; j < (int)maxY; j++)
                     {
-                        int tempI = i;
-                        if (tempI > globeTexture.width)
-                            tempI -= globeTexture.width;
-
-                        Vector2 v = new Vector2(tempI, j);
+                        Vector2 v = new Vector2(i, j);
+                        if (j> globeTexture.width)
+                            v= new Vector2(i, j- globeTexture.width);
                         if (IsPointInPolygon(v, trio))
                         {
                             newTex[(int)v.y * globeTexture.height + (int)v.x] = mineColor;
@@ -168,13 +171,13 @@ namespace Satelites
                 endPoint = polygon[i++];
                 endX = endPoint.x; endY = endPoint.y;
                 //
-                if (Mathf.Abs(endX - startX) < globeTexture.width/2)
-                {
+                //if (Mathf.Abs(endX - startX) < globeTexture.width/2)
+                //{
                     inside ^= (endY > pointY ^ startY > pointY) /* ? pointY inside [startY;endY] segment ? */
                               && /* if so, test if it is under the segment */
                               ((pointX - endX) < (pointY - endY) * (startX - endX) / (startY - endY));
-                }
-                else
+                //}
+                /*else
                 {
                     if(startX< globeTexture.width/2)
                         startX += globeTexture.width;
@@ -183,14 +186,14 @@ namespace Satelites
 
                     if (pointX < globeTexture.width / 2)
                         pointX += globeTexture.width;
-                    inside ^= (endY > pointY ^ startY > pointY) /* ? pointY inside [startY;endY] segment ? */
-                              && /* if so, test if it is under the segment */
+                    inside ^= (endY > pointY ^ startY > pointY) // ? pointY inside [startY;endY] segment ? 
+                              && // if so, test if it is under the segment 
                               ((pointX - endX) < (pointY - endY) * (startX - endX) / (startY - endY));
                     if (startX > globeTexture.width)
                         startX -= globeTexture.width;
                     else
                         endX -= globeTexture.width;
-                }
+                }*/
                 
             }
             return inside;
