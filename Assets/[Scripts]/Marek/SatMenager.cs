@@ -9,13 +9,15 @@ namespace Satelites
     {
         [SerializeField]
         public GameObject Aim;
-
+        
         public List<Satelite> MineSatelitesPool;
         [HideInInspector]
         public int MineSateliteCounter;
         public List<Satelite> OpponentSatelitesPool;
         [HideInInspector]
         public int OpponentSateliteCounter;
+
+        public int myArea;
 
         Satelite satToDestroy = null;
 
