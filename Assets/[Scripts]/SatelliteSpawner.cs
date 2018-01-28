@@ -49,7 +49,7 @@ namespace Satelites
 			}
 
             #endregion
-            InGameManager.Instance.UpdateTexts("0", "360", "0", "40");
+            GameObject.Find("MainController").GetComponent<InGameManager>().UpdateTexts("0", "360", "0", "40");
         }
 
 
@@ -136,7 +136,7 @@ namespace Satelites
                 return;
             if (Input.GetKeyDown(KeyCode.Space) && OnMineSateliteCreate != null)
 			{
-                InGameManager.Instance.BuySatelite();
+                GameObject.Find("MainController").GetComponent<InGameManager>().BuySatelite();
                 Debug.Log("SPACE");
 			}
 			if (Input.GetKeyDown((KeyCode.R)))

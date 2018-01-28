@@ -69,7 +69,7 @@ namespace Satelites
             IterateTris();
             globeTexture.SetPixels32(newTex);
             globeTexture.Apply();
-            InGameManager.Instance.UpdateEarnings();
+            GameObject.Find("MainController").GetComponent<InGameManager>().UpdateEarnings();
 
 
         }

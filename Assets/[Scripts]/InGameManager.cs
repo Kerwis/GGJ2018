@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using Satelites;
 
-public class InGameManager : Singleton<InGameManager> {
+public class InGameManager : MonoBehaviour {
 
     //int initialCash = 15;
     public RectTransform winP;
@@ -23,10 +23,7 @@ public class InGameManager : Singleton<InGameManager> {
 
     int areaEarningsRatio = 10;
 
-    public InGameManager()
-    {
-        
-    }
+    
     private void Awake()
     {
         myProgressT = GameObject.Find("WinText").GetComponent<Text>();
