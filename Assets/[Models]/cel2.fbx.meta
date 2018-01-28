@@ -1,35 +1,16 @@
 fileFormatVersion: 2
-guid: 2695f25c0ef6ce743853da4d50ccc831
-timeCreated: 1517079421
+guid: 70d1c91213369464e8fedc0df48ef50d
+timeCreated: 1517101874
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
-    100000: Circle.007
-    100002: Circle.009
-    100004: Circle.010
-    100006: //RootNode
-    400000: Circle.007
-    400002: Circle.009
-    400004: Circle.010
-    400006: //RootNode
-    2100000: bialy
-    2100002: zolty
-    2100004: inny
-    2300000: Circle.007
-    2300002: Circle.009
-    2300004: Circle.010
-    2300006: //RootNode
-    3300000: Circle.007
-    3300002: Circle.009
-    3300004: Circle.010
-    3300006: //RootNode
-    4300000: Circle.008
-    4300002: Circle.010
-    4300004: Circle.009
-    4300006: Circle.007
-    7400000: Scene
-    9500000: //RootNode
+    100000: //RootNode
+    400000: //RootNode
+    2100000: czerwony
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: Sphere.008
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -104,7 +85,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
   humanoidOversampling: 1
   additionalBone: 0
   userData: 
