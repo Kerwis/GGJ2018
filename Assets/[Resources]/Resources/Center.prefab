@@ -19,6 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4910224401670714}
+  - component: {fileID: 114867094956571068}
   m_Layer: 0
   m_Name: Aim
   m_TagString: Untagged
@@ -73,7 +74,6 @@ GameObject:
   - component: {fileID: 4810447289309008}
   - component: {fileID: 33546537760785858}
   - component: {fileID: 23713574668053726}
-  - component: {fileID: 114407138317402382}
   m_Layer: 0
   m_Name: AimPoint
   m_TagString: Untagged
@@ -220,32 +220,6 @@ AudioListener:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1700661150182396}
   m_Enabled: 1
---- !u!114 &114407138317402382
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1908112044551166}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ownerId: 0
-  group: 0
-  OwnerShipWasTransfered: 0
-  prefixBackup: -1
-  synchronization: 3
-  onSerializeTransformOption: 3
-  onSerializeRigidBodyOption: 2
-  ownershipTransfer: 0
-  ObservedComponents:
-  - {fileID: 4810447289309008}
-  ObservedComponentsFoldoutOpen: 1
-  viewIdField: 0
-  instantiationId: -1
-  currentMasterID: -1
-  isRuntimeInstantiated: 0
 --- !u!114 &114749134586381524
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -287,6 +261,32 @@ MonoBehaviour:
   enemyColor: {r: 0, g: 0, b: 0, a: 0}
   copy: {fileID: 2800000, guid: 0341c3836a17c784096a9beb4421fcef, type: 3}
   globeTexture: {fileID: 2800000, guid: 1bdfbf15f6abec34e9bb38e2d81fcc84, type: 3}
+--- !u!114 &114867094956571068
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1400898475652526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownerId: 0
+  group: 0
+  OwnerShipWasTransfered: 0
+  prefixBackup: -1
+  synchronization: 3
+  onSerializeTransformOption: 3
+  onSerializeRigidBodyOption: 2
+  ownershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 4910224401670714}
+  ObservedComponentsFoldoutOpen: 1
+  viewIdField: 0
+  instantiationId: -1
+  currentMasterID: -1
+  isRuntimeInstantiated: 0
 --- !u!114 &114925279711698152
 MonoBehaviour:
   m_ObjectHideFlags: 1
