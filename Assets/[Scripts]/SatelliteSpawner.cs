@@ -20,6 +20,7 @@ namespace Satelites
 
 		private void Start()
 		{
+            
             TP = GameObject.Find("MainController").GetComponentInChildren<TrianglePainter>();
             myCash = GetComponent<Cash>();
 			
@@ -40,8 +41,9 @@ namespace Satelites
 				Debug.Log("Add enemy!!!");
 			}
 
-			#endregion
-		}
+            #endregion
+            InGameManager.Instance.UpdateTexts("0", "360", "0", "40");
+        }
 
 
 		public PhotonView myView;
@@ -115,7 +117,6 @@ namespace Satelites
 		{
 			if (Input.GetKeyDown(KeyCode.Space) && OnMineSateliteCreate != null)
 			{
-				OnMineSateliteCreate.Invoke();
                 InGameManager.Instance.BuySatelite();
 			}
 			if (Input.GetKeyDown((KeyCode.R)))

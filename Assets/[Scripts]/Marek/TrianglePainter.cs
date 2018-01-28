@@ -23,15 +23,25 @@ namespace Satelites
 
         public int GetPlayerPixelCount()
         {
-            
-            
+            Color bc = new Color(0, 0, 0, 0);
+            if (GminX == globeTexture.width || GminY == globeTexture.height || GmaxX == 0 || GmaxY == 0)
+                return 0;
             //find min max x y
             Buff = globeTexture.GetPixels(GminX, GminY, GmaxX - GminX, GmaxY - GminY);
+            foreach(Color c in Buff)
+            {
+                if (c !=bc)
+                 allPixels++;
+            }
             return allPixels;
         }
 
         private void OnEnable()
         {
+            GminX = globeTexture.width;
+            GminY = globeTexture.height;
+            GmaxX = 0;
+            GmaxY = 0;
             mineColor.a=.4f;
             enemyColor.a = .4f;
             //SatMenager.Instance.OnMineSateliteCreate.AddListener(TurnDraw);
@@ -88,6 +98,7 @@ namespace Satelites
             //MOJE
             if (SatMenager.mySatelliteSpawners.MineSateliteCounter < 3)
             {
+                /*
                 for (int i = 1; i < alowedDistance/2+1; i++)
                 {
                     newTex[((int)SatMenager.mySatelliteSpawners.MineSatelitesCords[0].y*globeTexture.width + (int)SatMenager.mySatelliteSpawners.MineSatelitesCords[0].x)+i] = Color.red;
@@ -95,7 +106,7 @@ namespace Satelites
                 for (int i = 1; i < alowedDistance/2 + 1; i++)
                 {
                     newTex[((int)(SatMenager.mySatelliteSpawners.MineSatelitesCords[0].y) * globeTexture.width + (int)SatMenager.mySatelliteSpawners.MineSatelitesCords[0].x)+(i*globeTexture.width)] = Color.red;
-                }
+                }*/
 
                 return;
             }
@@ -285,6 +296,14 @@ namespace Satelites
                     }
                 }
             }
+            if(maxX>GmaxX)
+                GmaxX = (int)maxX;
+            if (maxY > GmaxY)
+                GmaxY = (int)maxY;
+            if (minY < GminY)
+                GminY = (int)minY;
+            if (minX < GminX)
+                GminX = (int)minX;
             /*Vector2[] arrayToPaint = new Vector2[ListToPaint.Count];
             for (int i = 0; i < ListToPaint.Count; i++)
                 arrayToPaint[i] = ListToPaint[i];*/
