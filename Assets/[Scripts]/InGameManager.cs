@@ -89,6 +89,7 @@ public class InGameManager : Singleton<InGameManager> {
 
     void GetPaid(int nrTurn)
     {
+        Debug.Log("Earn");
         SatMenager.mySatelliteSpawners.myCash.myMoney += SatMenager.mySatelliteSpawners.myCash.myEarnings;
         UpdateTexts();
     }
@@ -105,7 +106,7 @@ public class InGameManager : Singleton<InGameManager> {
     [PunRPC]
     void Lose()
     {
-        loseP.gameObject.SetActive(true);
+        //loseP.gameObject.SetActive(true);
     }
 
     void UpdateTexts()

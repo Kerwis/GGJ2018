@@ -51,13 +51,14 @@ public class MainController : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		if (PhotonNetwork.isMasterClient|| !PhotonNetwork.connected)
+		if (PhotonNetwork.isMasterClient || !PhotonNetwork.connected)
 		{
 			if (Time.realtimeSinceStartup > _lastTimeUpdate + _turnTime)
 			{
 				_turnCounter++;
 				if (NextTurn != null)
 					NextTurn(_turnCounter);
+				Debug.Log("dsad");
 				myView.RPC("InvokeNextTurnRPC", PhotonTargets.All);
 				_lastTimeUpdate = Time.realtimeSinceStartup;
 			}
@@ -67,6 +68,7 @@ public class MainController : MonoBehaviour
 	[PunRPC]
 	private void InvokeNextTurnRPC()
 	{
+		Debug.Log("RPC Send");
 		if (NextTurnRPC != null)
 			NextTurnRPC(_turnCounter);
 	}
