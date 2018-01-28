@@ -16,8 +16,8 @@ public class InGameManager : Singleton<InGameManager> {
     TrianglePainter TP;
 
 
-    int sateliteCost=15;
-    int winCost=500;
+    int sateliteCost;
+    int winCost;
 
     int areaEarningsRatio = 10;
 
