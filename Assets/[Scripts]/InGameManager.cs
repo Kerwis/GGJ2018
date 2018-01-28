@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using Satelites;
 
-public class InGameManager : MonoBehaviour {
+public class InGameManager : Singleton<InGameManager> {
 
     //int initialCash = 15;
     public Text myProgressT;
@@ -13,6 +13,7 @@ public class InGameManager : MonoBehaviour {
     public Text myEarningsT;
     public Text mySateliteCostT;
     public Button buySat;
+    TrianglePainter TP;
 
 
     int sateliteCost=10;
@@ -20,8 +21,13 @@ public class InGameManager : MonoBehaviour {
 
     int areaEarningsRatio = 1;
 
+    public InGameManager()
+    {
+    }
+
     private void OnEnable()
     {
+        TP = GameObject.Find("MainController").GetComponentInChildren<TrianglePainter>();
         buySat.onClick.AddListener(BuySatelite);
         MainController.NextTurn+=GetPaid;
         UpdateTexts();
@@ -29,12 +35,14 @@ public class InGameManager : MonoBehaviour {
     //eventy
     public void UpdateEarnings()
     {
+        Debug.Log(TP.GetPlayerPixelCount());
         SatMenager.mySatelliteSpawners.myCash.myEarnings = 1;
         //foreachsatelite
-        SatMenager.mySatelliteSpawners.myCash.myEarnings += SatMenager.mySatelliteSpawners.MineSateliteCounter * SatMenager.mySatelliteSpawners.myCash.sateliteEarnings;
+        //SatMenager.mySatelliteSpawners.myCash.myEarnings += SatMenager.mySatelliteSpawners.MineSateliteCounter * SatMenager.mySatelliteSpawners.myCash.sateliteEarnings;
         //forarea
-        SatMenager.mySatelliteSpawners.myCash.myEarnings+= SatMenager.Instance.myArea * areaEarningsRatio;
-
+        //SatMenager.mySatelliteSpawners.myCash.myEarnings+= SatMenager.Instance.myArea * areaEarningsRatio;
+        SatMenager.mySatelliteSpawners.myCash.myEarnings += TP.GetPlayerPixelCount()/areaEarningsRatio;
+        Debug.Log(SatMenager.mySatelliteSpawners.myCash.myEarnings);
         UpdateTexts();
 
     }

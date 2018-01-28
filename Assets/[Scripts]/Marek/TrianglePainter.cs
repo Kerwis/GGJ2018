@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Satelites
 {
-    public class TrianglePainter : Singleton<TrianglePainter>
+    public class TrianglePainter : MonoBehaviour
     {
         List<Vector3> dontRedrawThisMine = new List<Vector3>();
         List<Vector3> dontRedrawThisOpp = new List<Vector3>();
@@ -15,9 +15,15 @@ namespace Satelites
         public Texture2D copy;
         public Texture2D globeTexture;
         Color32[] newTex;
+        Color32[] Buff;
+        int allPixels;
 
-        public TrianglePainter()
+        
+
+        public int GetPlayerPixelCount()
         {
+            return allPixels;
+           
         }
 
         private void OnEnable()
@@ -41,6 +47,7 @@ namespace Satelites
         }
         public void TurnDraw()
         {
+            allPixels = 0;
             dontRedrawThisMine.Clear();
             dontRedrawThisOpp.Clear();
             newTex = copy.GetPixels32();
@@ -48,6 +55,7 @@ namespace Satelites
             IterateTris();
             globeTexture.SetPixels32(newTex);
             globeTexture.Apply();
+            InGameManager.Instance.UpdateEarnings();
 
         }
 
@@ -239,7 +247,7 @@ namespace Satelites
                         if (IsPointInPolygon(v, trio))
                         {
                             newTex[(int)v.y * globeTexture.height + (int)v.x] = c;
-
+                            allPixels++;
                         }
 
                     }
@@ -264,6 +272,7 @@ namespace Satelites
                         if (IsPointInPolygon(v, trio))
                         {
                             newTex[(int)v.y * globeTexture.height + (int)v.x] = c;
+                           
 
                         }
 
