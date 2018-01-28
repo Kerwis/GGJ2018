@@ -34,19 +34,19 @@ public class CameraController : MonoBehaviour
 	{
 		if (Input.GetKey((KeyCode) Stering.Keys.Left))
 		{
-			_centerTargetRotation.y = _rotationFactor * _rotationSpeedX;
+			_centerTargetRotation.y = _rotationFactor * _rotationSpeedX * Time.smoothDeltaTime;
 		}
 		if (Input.GetKey((KeyCode) Stering.Keys.Right))
 		{
-			_centerTargetRotation.y = -_rotationFactor * _rotationSpeedX;
+			_centerTargetRotation.y = -_rotationFactor * _rotationSpeedX * Time.smoothDeltaTime;
 		}
 		if (Input.GetKey((KeyCode) Stering.Keys.Up))
 		{
-			_centerAimTargetRotation.x = _rotationFactor * _rotationSpeedY;
+			_centerAimTargetRotation.x = _rotationFactor * _rotationSpeedY * Time.smoothDeltaTime;
 		}
 		if (Input.GetKey((KeyCode) Stering.Keys.Down))
 		{
-			_centerAimTargetRotation.x = -_rotationFactor * _rotationSpeedY;
+			_centerAimTargetRotation.x = -_rotationFactor * _rotationSpeedY * Time.smoothDeltaTime;
 		}
 
 		_centerCurrentRotation = Vector3.SmoothDamp(_centerCurrentRotation, _centerTargetRotation, ref _rotationSpeed,

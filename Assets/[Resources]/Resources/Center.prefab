@@ -336,7 +336,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 924de7f1bef2440a7b3a2f91f9d2a4de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rotationFactor: 1
+  _rotationFactor: 75
   _mainCameraCenter: {fileID: 1609645772991304}
   _aimPoint: {fileID: 1400898475652526}
   _camera: {fileID: 1700661150182396}
