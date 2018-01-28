@@ -102,7 +102,7 @@ public class InGameManager : Singleton<InGameManager> {
         //onWin;
     }
 
-    //[PunRPC]
+    [PunRPC]
     void Lose()
     {
         loseP.gameObject.SetActive(true);
