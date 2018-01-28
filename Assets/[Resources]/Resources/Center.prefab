@@ -312,6 +312,7 @@ MonoBehaviour:
   _rotationFactor: 1
   _mainCameraCenter: {fileID: 1609645772991304}
   _aimPoint: {fileID: 1400898475652526}
+  _camera: {fileID: 1700661150182396}
 --- !u!124 &124484614254553404
 Behaviour:
   m_ObjectHideFlags: 1

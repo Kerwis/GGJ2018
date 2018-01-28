@@ -11,6 +11,9 @@ public class CameraController : MonoBehaviour
 	private GameObject _mainCameraCenter;
 	[SerializeField] 
 	private GameObject _aimPoint;
+
+	[SerializeField] 
+	private GameObject _camera;
 	
 	private float _rotationSpeedX = 1f;
 	private float _rotationSpeedY = 1f;
@@ -24,6 +27,8 @@ public class CameraController : MonoBehaviour
 
 	private Vector3 _rotationSpeed;
 	private Vector3 _rotationAimSpeed;
+
+	private PhotonView myView;
 
 	private void HandleCamera()
 	{
@@ -67,9 +72,22 @@ public class CameraController : MonoBehaviour
 
 	}
 
+	private void Start()
+	{
+		myView = GetComponent<PhotonView>();
+		if (!myView.isMine)
+		{
+			Destroy(_camera);
+			Destroy(this);
+		}
+	}
+
 	// Update is called once per frame
 	void Update()
 	{
-		HandleCamera();
+		if (myView.isMine)
+		{
+			HandleCamera();
+		}
 	}
 }
