@@ -40,7 +40,7 @@ public class InGameManager : MonoBehaviour {
         
         TP = GameObject.Find("MainController").GetComponentInChildren<TrianglePainter>();
         buySat.onClick.AddListener(BuySatelite);
-        MainController.NextTurnRPC+=GetPaid;
+        MainController.NextTurn+=GetPaid;
         //UpdateTexts();
     }
     //eventy
