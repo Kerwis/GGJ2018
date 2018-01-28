@@ -9,7 +9,7 @@ namespace Satelites
     {
         List<Vector3> dontRedrawThisMine = new List<Vector3>();
         List<Vector3> dontRedrawThisOpp = new List<Vector3>();
-
+        public float alowedDistance=30;
         public Color mineColor;
         public Color enemyColor;
         public Texture2D copy;
@@ -85,8 +85,8 @@ namespace Satelites
                 {
                     for (int k = j + 1; k < SatMenager.mySatelliteSpawners.MineSateliteCounter; k++)
                     {
-
-                        DrawTris(i, j, k, true);
+                        if (CheckIfValid(i, j, k))
+                            DrawTris(i, j, k, true);
 
                     }
                 }
@@ -107,14 +107,38 @@ namespace Satelites
                 {
                     for (int k = j + 1; k < SatMenager.enemySatelliteSpawners.MineSateliteCounter; k++)
                     {
-
-                        DrawTris(i, j, k, false);
+                        if(CheckIfValid(i, j, k))
+                            DrawTris(i, j, k, false);
 
                     }
                 }
             }
         }
+        bool CheckIfValid(int a, int b, int c)
+        {
+            bool valid=true;
+            Vector2 CordsA = SatMenager.mySatelliteSpawners.MineSatelitesCords[a];
+            Vector2 CordsB = SatMenager.mySatelliteSpawners.MineSatelitesCords[b];
+            Vector2 CordsC = SatMenager.mySatelliteSpawners.MineSatelitesCords[c];
+            //check distance between all
+            Debug.Log(Vector2.Distance(CordsA, CordsB));
+            if (Vector2.Distance(CordsA, CordsB) > alowedDistance)
+            {
+                valid = false;
+            }
+            Debug.Log(CordsA+" "+CordsB + " "+Vector2.Distance(CordsA, CordsC));
+            if (Vector2.Distance(CordsA, CordsC) > alowedDistance)
+            {
+                valid = false;
+            }
+            Debug.Log(Vector2.Distance(CordsC, CordsB));
+            if (Vector2.Distance(CordsC, CordsB) > alowedDistance)
+            {
+                valid = false;
+            }
 
+            return valid;
+        }
 
         void IterateTris()
         {
