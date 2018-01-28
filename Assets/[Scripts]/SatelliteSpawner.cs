@@ -16,8 +16,13 @@ namespace Satelites
 
 		public UnityEvent OnMineSateliteCreate;
 
+		private Cash myCash;
+
 		private void Start()
 		{
+
+			myCash = GetComponent<Cash>();
+			
 			#region EventsInit
 
 			if (OnMineSateliteCreate == null)
