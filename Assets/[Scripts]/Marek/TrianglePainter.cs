@@ -71,6 +71,7 @@ namespace Satelites
             globeTexture.Apply();
             InGameManager.Instance.UpdateEarnings();
 
+
         }
 
         private void Update()
