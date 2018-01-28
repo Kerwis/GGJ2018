@@ -9,10 +9,14 @@ namespace Satelites
 	public class SatelliteSpawner : MonoBehaviour
 	{
         TrianglePainter TP;
-		[SerializeField] public GameObject Aim;
+		
+		[SerializeField] 
+		public GameObject Aim;
 
 		public List<Vector2> MineSatelitesCords;
-		[HideInInspector] public int MineSateliteCounter;
+		
+		[HideInInspector] 
+		public int MineSateliteCounter;
 
 		public UnityEvent OnMineSateliteCreate;
 
@@ -56,8 +60,7 @@ namespace Satelites
 			{
 				CreateSatellite();
 			}
-            
-                TP.TurnDraw();
+            TP.TurnDraw();
             //else
                // TrianglePainter.Instance = new TrianglePainter();
 		}
