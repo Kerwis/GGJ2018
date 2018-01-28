@@ -9,7 +9,7 @@ public class MainController : MonoBehaviour
 	public static Action<int> NextTurn;
 
 	[SerializeField] 
-	private float _turnTime = 1f;
+	private float _turnTime = .1f;
 	[SerializeField] 
 	private PhotonView  myView;
 
