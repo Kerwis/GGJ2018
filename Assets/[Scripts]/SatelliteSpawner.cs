@@ -11,7 +11,7 @@ namespace Satelites
 
 		[SerializeField] public GameObject Aim;
 
-		public List<Satelite> MineSatelitesPool;
+		public List<Vector2> MineSatelitesCords;
 		[HideInInspector] public int MineSateliteCounter;
 
 		public UnityEvent OnMineSateliteCreate;
@@ -56,12 +56,9 @@ namespace Satelites
 		{
 			GameObject go = PhotonNetwork.Instantiate("Satelite", Vector3.zero, Quaternion.identity, 0);
 			Satelite sat = go.GetComponentInChildren<Satelite>();
-			if (myView.isMine)
-			{
-				MineSatelitesPool.Add(sat);
-				MineSateliteCounter++;
-			}
-			SetupSatelite(sat);
+			SetupSatelite(sat);		
+			MineSateliteCounter++;
+			MineSatelitesCords.Add(sat.cords);
 			TrianglePainter.Instance.TurnDraw();
 		}
 
@@ -70,12 +67,12 @@ namespace Satelites
 			if (stream.isWriting)
 			{
 				stream.SendNext(MineSateliteCounter);
-				SendList(MineSatelitesPool, stream);
+				SendList(MineSatelitesCords, stream);
 			}
 			else
 			{				
 				MineSateliteCounter = (int) stream.ReceiveNext();
-				MineSatelitesPool = ReciveList<Satelite>(stream);
+				MineSatelitesCords = ReciveList<Vector2>(stream);
 			}
 		}
 
@@ -90,7 +87,7 @@ namespace Satelites
 			return tmp;
 		}
 
-		private void SendList(List<Satelite> listToSend, PhotonStream stream)
+		private void SendList(List<Vector2> listToSend, PhotonStream stream)
 		{
 			for (int i = 0; i < MineSateliteCounter; i++)
 			{
