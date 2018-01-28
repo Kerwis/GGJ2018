@@ -231,7 +231,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Aim: {fileID: 1400898475652526}
-  MineSatelitesPool: []
+  MineSatelitesCords: []
   MineSateliteCounter: 0
   OnMineSateliteCreate:
     m_PersistentCalls:

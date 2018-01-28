@@ -119,14 +119,14 @@ namespace Satelites
         {
             if (me)
             {
-                Vector2[] bigThree = new Vector2[] { SatMenager.mySatelliteSpawners.MineSatelitesPool[q].cords, SatMenager.mySatelliteSpawners.MineSatelitesPool[w].cords, SatMenager.mySatelliteSpawners.MineSatelitesPool[e].cords };
+                Vector2[] bigThree = new Vector2[] { SatMenager.mySatelliteSpawners.MineSatelitesCords[q], SatMenager.mySatelliteSpawners.MineSatelitesCords[w], SatMenager.mySatelliteSpawners.MineSatelitesCords[e] };
 
                 //check for enemy
 
                 for (int i = 0; i < SatMenager.enemySatelliteSpawners.MineSateliteCounter; i++)
                 {
 
-                    if (IsPointInPolygon(SatMenager.enemySatelliteSpawners.MineSatelitesPool[i].cords, bigThree))
+                    if (IsPointInPolygon(SatMenager.enemySatelliteSpawners.MineSatelitesCords[i], bigThree))
                     {
                         Debug.Log("enemy");
                         //remove from dont redraw
@@ -145,14 +145,14 @@ namespace Satelites
             }
             else
             {
-                Vector2[] bigThree = new Vector2[] { SatMenager.enemySatelliteSpawners.MineSatelitesPool[q].cords, SatMenager.enemySatelliteSpawners.MineSatelitesPool[w].cords, SatMenager.enemySatelliteSpawners.MineSatelitesPool[e].cords };
+                Vector2[] bigThree = new Vector2[] { SatMenager.enemySatelliteSpawners.MineSatelitesCords[q], SatMenager.enemySatelliteSpawners.MineSatelitesCords[w], SatMenager.enemySatelliteSpawners.MineSatelitesCords[e] };
 
                 //check for enemy
 
                 for (int i = 0; i < SatMenager.mySatelliteSpawners.MineSateliteCounter; i++)
                 {
 
-                    if (IsPointInPolygon(SatMenager.mySatelliteSpawners.MineSatelitesPool[i].cords, bigThree))
+                    if (IsPointInPolygon(SatMenager.mySatelliteSpawners.MineSatelitesCords[i], bigThree))
                     {
                         Debug.Log("enemy");
                         //remove from dont redraw
