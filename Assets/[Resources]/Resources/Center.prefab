@@ -232,9 +232,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myMoney: 0
-  myEarnings: 1
-  myArea: 0
-  sateliteEarnings: 1
 --- !u!114 &114172064495205902
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -254,7 +251,6 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  myCash: {fileID: 0}
   myView: {fileID: 114749134586381524}
 --- !u!114 &114749134586381524
 MonoBehaviour:

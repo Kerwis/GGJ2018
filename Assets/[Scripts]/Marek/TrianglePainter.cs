@@ -76,6 +76,15 @@ namespace Satelites
             //MOJE
             if (SatMenager.mySatelliteSpawners.MineSateliteCounter < 3)
             {
+                for (int i = 1; i < alowedDistance+1; i++)
+                {
+                    newTex[(int)SatMenager.mySatelliteSpawners.MineSatelitesCords[0].y*globeTexture.width + (int)SatMenager.mySatelliteSpawners.MineSatelitesCords[0].x+i] = Color.red;
+                }
+                for (int i = 1; i < alowedDistance + 1; i++)
+                {
+                    newTex[(int)(SatMenager.mySatelliteSpawners.MineSatelitesCords[0].y+i) * globeTexture.width + (int)SatMenager.mySatelliteSpawners.MineSatelitesCords[0].x ] = Color.red;
+                }
+
                 return;
             }
 
