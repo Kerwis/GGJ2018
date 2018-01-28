@@ -33,6 +33,9 @@ namespace Satelites
 				OnMineSateliteCreate = new UnityEvent();
 
 			OnMineSateliteCreate.AddListener(CreateMineSatelite);
+			
+			
+			Debug.Log("Add palyer!!!");
 
 			if (myView.isMine)
 			{
@@ -58,9 +61,13 @@ namespace Satelites
 			{
 				CreateSatellite();
 			}
-            TP.TurnDraw();
-            //else
-               // TrianglePainter.Instance = new TrianglePainter();
+            myView.RPC("CheckDrow", PhotonTargets.All);
+		}
+
+		[PunRPC]
+		private void CheckDrow()
+		{			
+			TP.TurnDraw();
 		}
 
 		[PunRPC]
