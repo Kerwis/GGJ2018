@@ -6,6 +6,9 @@ using UnityEngine;
 public class MainController : MonoBehaviour
 {
 
+	public static Action<int> NextTurnRPC;
+	
+	
 	public static Action<int> NextTurn;
 
 	[SerializeField] 
@@ -55,10 +58,17 @@ public class MainController : MonoBehaviour
 				_turnCounter++;
 				if (NextTurn != null)
 					NextTurn(_turnCounter);
-				//TODO send RPC
+				myView.RPC("InvokeNextTurnRPC", PhotonTargets.All);
 				_lastTimeUpdate = Time.realtimeSinceStartup;
 			}
 		}
+	}
+	
+	[PunRPC]
+	private void InvokeNextTurnRPC()
+	{
+		if (NextTurnRPC != null)
+			NextTurnRPC(_turnCounter);
 	}
 
 	[PunRPC]

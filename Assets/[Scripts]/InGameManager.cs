@@ -43,7 +43,7 @@ public class InGameManager : Singleton<InGameManager> {
         
         TP = GameObject.Find("MainController").GetComponentInChildren<TrianglePainter>();
         buySat.onClick.AddListener(BuySatelite);
-        MainController.NextTurn+=GetPaid;
+        MainController.NextTurnRPC+=GetPaid;
         //UpdateTexts();
     }
     //eventy
