@@ -71,7 +71,7 @@ namespace Satelites
             //OnTurnEnd.AddListener(drawTris);
         }
 
-        void IterateTris()
+        void IterateTrisMe()
         {
             //MOJE
             if (SatMenager.mySatelliteSpawners.MineSateliteCounter < 3)
@@ -81,16 +81,19 @@ namespace Satelites
 
             for (int i = 0; i < SatMenager.mySatelliteSpawners.MineSateliteCounter; i++)
             {
-                for (int j = i+1; j < SatMenager.mySatelliteSpawners.MineSateliteCounter; j++)
+                for (int j = i + 1; j < SatMenager.mySatelliteSpawners.MineSateliteCounter; j++)
                 {
-                    for (int k = j+1; k < SatMenager.mySatelliteSpawners.MineSateliteCounter; k++)
+                    for (int k = j + 1; k < SatMenager.mySatelliteSpawners.MineSateliteCounter; k++)
                     {
-                        
-                        DrawTris(i,j,k,true);
-                        
+
+                        DrawTris(i, j, k, true);
+
                     }
                 }
             }
+        }
+        void IterateTrisEnemy()
+        {
             //Przeciwnik
             Debug.Log("SatMenager.enemySatelliteSpawners.MineSateliteCounter " + SatMenager.enemySatelliteSpawners.MineSateliteCounter);
             if (SatMenager.enemySatelliteSpawners.MineSateliteCounter < 3)
@@ -105,11 +108,19 @@ namespace Satelites
                     for (int k = j + 1; k < SatMenager.enemySatelliteSpawners.MineSateliteCounter; k++)
                     {
 
-                        DrawTris(i, j, k,false);
+                        DrawTris(i, j, k, false);
 
                     }
                 }
             }
+        }
+
+
+        void IterateTris()
+        {
+            IterateTrisMe();
+            IterateTrisEnemy();
+            
 
             //rysuj
             
