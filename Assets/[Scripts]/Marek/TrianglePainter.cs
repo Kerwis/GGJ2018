@@ -9,7 +9,7 @@ namespace Satelites
     {
         List<Vector3> dontRedrawThisMine = new List<Vector3>();
         List<Vector3> dontRedrawThisOpp = new List<Vector3>();
-
+        public float alowedDistance=30;
         public Color mineColor;
         public Color enemyColor;
         public Texture2D copy;
@@ -35,7 +35,6 @@ namespace Satelites
         private void Start()
         {
             newTex = globeTexture.GetPixels32();
-            Debug.Log(newTex.Length);
             
             //MainController.NextTurn +=  
             //OnTurnEnd.AddListener(drawTris);
@@ -72,31 +71,33 @@ namespace Satelites
             //OnTurnEnd.AddListener(drawTris);
         }
 
-        void IterateTris()
+        void IterateTrisMe()
         {
             //MOJE
             if (SatMenager.mySatelliteSpawners.MineSateliteCounter < 3)
             {
-                Debug.Log("me below 3 = "+ SatMenager.mySatelliteSpawners.MineSateliteCounter);
                 return;
             }
 
             for (int i = 0; i < SatMenager.mySatelliteSpawners.MineSateliteCounter; i++)
             {
-                for (int j = i+1; j < SatMenager.mySatelliteSpawners.MineSateliteCounter; j++)
+                for (int j = i + 1; j < SatMenager.mySatelliteSpawners.MineSateliteCounter; j++)
                 {
-                    for (int k = j+1; k < SatMenager.mySatelliteSpawners.MineSateliteCounter; k++)
+                    for (int k = j + 1; k < SatMenager.mySatelliteSpawners.MineSateliteCounter; k++)
                     {
-                        
-                        DrawTris(i,j,k,true);
-                        
+                        if (CheckIfValid(i, j, k))
+                            DrawTris(i, j, k, true);
+
                     }
                 }
             }
+        }
+        void IterateTrisEnemy()
+        {
             //Przeciwnik
+            Debug.Log("SatMenager.enemySatelliteSpawners.MineSateliteCounter " + SatMenager.enemySatelliteSpawners.MineSateliteCounter);
             if (SatMenager.enemySatelliteSpawners.MineSateliteCounter < 3)
             {
-                Debug.Log("en below 3 = " + SatMenager.enemySatelliteSpawners.MineSateliteCounter);
                 return;
             }
 
@@ -106,12 +107,44 @@ namespace Satelites
                 {
                     for (int k = j + 1; k < SatMenager.enemySatelliteSpawners.MineSateliteCounter; k++)
                     {
-
-                        DrawTris(i, j, k,false);
+                        if(CheckIfValid(i, j, k))
+                            DrawTris(i, j, k, false);
 
                     }
                 }
             }
+        }
+        bool CheckIfValid(int a, int b, int c)
+        {
+            bool valid=true;
+            Vector2 CordsA = SatMenager.mySatelliteSpawners.MineSatelitesCords[a];
+            Vector2 CordsB = SatMenager.mySatelliteSpawners.MineSatelitesCords[b];
+            Vector2 CordsC = SatMenager.mySatelliteSpawners.MineSatelitesCords[c];
+            //check distance between all
+            Debug.Log(Vector2.Distance(CordsA, CordsB));
+            if (Vector2.Distance(CordsA, CordsB) > alowedDistance)
+            {
+                valid = false;
+            }
+            Debug.Log(CordsA+" "+CordsB + " "+Vector2.Distance(CordsA, CordsC));
+            if (Vector2.Distance(CordsA, CordsC) > alowedDistance)
+            {
+                valid = false;
+            }
+            Debug.Log(Vector2.Distance(CordsC, CordsB));
+            if (Vector2.Distance(CordsC, CordsB) > alowedDistance)
+            {
+                valid = false;
+            }
+
+            return valid;
+        }
+
+        void IterateTris()
+        {
+            IterateTrisMe();
+            IterateTrisEnemy();
+            
 
             //rysuj
             
@@ -121,14 +154,14 @@ namespace Satelites
         {
             if (me)
             {
-                Vector2[] bigThree = new Vector2[] { SatMenager.mySatelliteSpawners.MineSatelitesPool[q].cords, SatMenager.mySatelliteSpawners.MineSatelitesPool[w].cords, SatMenager.mySatelliteSpawners.MineSatelitesPool[e].cords };
+                Vector2[] bigThree = new Vector2[] { SatMenager.mySatelliteSpawners.MineSatelitesCords[q], SatMenager.mySatelliteSpawners.MineSatelitesCords[w], SatMenager.mySatelliteSpawners.MineSatelitesCords[e] };
 
                 //check for enemy
 
                 for (int i = 0; i < SatMenager.enemySatelliteSpawners.MineSateliteCounter; i++)
                 {
 
-                    if (IsPointInPolygon(SatMenager.enemySatelliteSpawners.MineSatelitesPool[i].cords, bigThree))
+                    if (IsPointInPolygon(SatMenager.enemySatelliteSpawners.MineSatelitesCords[i], bigThree))
                     {
                         Debug.Log("enemy");
                         //remove from dont redraw
@@ -147,14 +180,14 @@ namespace Satelites
             }
             else
             {
-                Vector2[] bigThree = new Vector2[] { SatMenager.enemySatelliteSpawners.MineSatelitesPool[q].cords, SatMenager.enemySatelliteSpawners.MineSatelitesPool[w].cords, SatMenager.enemySatelliteSpawners.MineSatelitesPool[e].cords };
+                Vector2[] bigThree = new Vector2[] { SatMenager.enemySatelliteSpawners.MineSatelitesCords[q], SatMenager.enemySatelliteSpawners.MineSatelitesCords[w], SatMenager.enemySatelliteSpawners.MineSatelitesCords[e] };
 
                 //check for enemy
 
                 for (int i = 0; i < SatMenager.mySatelliteSpawners.MineSateliteCounter; i++)
                 {
 
-                    if (IsPointInPolygon(SatMenager.mySatelliteSpawners.MineSatelitesPool[i].cords, bigThree))
+                    if (IsPointInPolygon(SatMenager.mySatelliteSpawners.MineSatelitesCords[i], bigThree))
                     {
                         Debug.Log("enemy");
                         //remove from dont redraw

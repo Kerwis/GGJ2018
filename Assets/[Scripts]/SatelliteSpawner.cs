@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 namespace Satelites
 {
@@ -10,13 +11,18 @@ namespace Satelites
 
 		[SerializeField] public GameObject Aim;
 
-		public List<Satelite> MineSatelitesPool;
+		public List<Vector2> MineSatelitesCords;
 		[HideInInspector] public int MineSateliteCounter;
 
 		public UnityEvent OnMineSateliteCreate;
 
-		private void OnEnable()
+		private Cash myCash;
+
+		private void Start()
 		{
+
+			myCash = GetComponent<Cash>();
+			
 			#region EventsInit
 
 			if (OnMineSateliteCreate == null)
@@ -31,6 +37,7 @@ namespace Satelites
 			else
 			{
 				SatMenager.enemySatelliteSpawners = this;
+				Debug.Log("Add enemy!!!");
 			}
 
 			#endregion
@@ -45,7 +52,7 @@ namespace Satelites
 			Debug.Log("add " + myView.isMine);
 			if (myView.isMine)
 			{
-				myView.RPC("CreateSatellite", PhotonTargets.All);
+				CreateSatellite();
 			}
 		}
 
@@ -54,12 +61,9 @@ namespace Satelites
 		{
 			GameObject go = PhotonNetwork.Instantiate("Satelite", Vector3.zero, Quaternion.identity, 0);
 			Satelite sat = go.GetComponentInChildren<Satelite>();
-			if (myView.isMine)
-			{
-				MineSatelitesPool.Add(sat);
-				MineSateliteCounter++;
-			}
-			SetupSatelite(sat);
+			SetupSatelite(sat);		
+			MineSateliteCounter++;
+			MineSatelitesCords.Add(sat.cords);
 			TrianglePainter.Instance.TurnDraw();
 		}
 
@@ -67,13 +71,32 @@ namespace Satelites
 		{
 			if (stream.isWriting)
 			{
-				stream.SendNext(MineSatelitesPool);
-				stream.SendNext(MineSatelitesPool);
+				stream.SendNext(MineSateliteCounter);
+				SendList(MineSatelitesCords, stream);
 			}
 			else
-			{
-				MineSatelitesPool = (List<Satelite>) stream.ReceiveNext();
+			{				
 				MineSateliteCounter = (int) stream.ReceiveNext();
+				MineSatelitesCords = ReciveList<Vector2>(stream);
+			}
+		}
+
+		private List<T> ReciveList <T> (PhotonStream stream)
+		{
+			
+			List<T> tmp = new List<T>();
+			for (int i = 0; i < MineSateliteCounter; i++)
+			{
+				tmp.Add((T)stream.ReceiveNext());
+			}
+			return tmp;
+		}
+
+		private void SendList(List<Vector2> listToSend, PhotonStream stream)
+		{
+			for (int i = 0; i < MineSateliteCounter; i++)
+			{
+				stream.SendNext(listToSend[i]);
 			}
 		}
 
@@ -89,8 +112,12 @@ namespace Satelites
 		{
 			if (Input.GetKeyDown(KeyCode.Space) && OnMineSateliteCreate != null)
 			{
-				Debug.Log(MineSateliteCounter);
 				OnMineSateliteCreate.Invoke();
+			}
+			if (Input.GetKeyDown((KeyCode.R)))
+			{
+				SceneManager.UnloadSceneAsync("main");
+				SceneManager.LoadSceneAsync("main");
 			}
 		}
 		

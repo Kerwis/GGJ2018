@@ -9,7 +9,7 @@ public class MainController : MonoBehaviour
 	public static Action<int> NextTurn;
 
 	[SerializeField] 
-	private float _turnTime = 1f;
+	private float _turnTime = .1f;
 	[SerializeField] 
 	private PhotonView  myView;
 
@@ -30,7 +30,6 @@ public class MainController : MonoBehaviour
 
 	private void SpownPlayer()
 	{
-		Debug.Log("Spown");
 		if (PhotonNetwork.isMasterClient)
 		{
 			myView.RPC("CreatePlayer", PhotonTargets.All);

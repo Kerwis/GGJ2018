@@ -38,6 +38,7 @@ GameObject:
   - component: {fileID: 114749134586381524}
   - component: {fileID: 114972101467060506}
   - component: {fileID: 114172064495205902}
+  - component: {fileID: 114111332350551422}
   m_Layer: 0
   m_Name: Center
   m_TagString: Untagged
@@ -219,6 +220,17 @@ AudioListener:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1700661150182396}
   m_Enabled: 1
+--- !u!114 &114111332350551422
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1609645772991304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1edda70901da4cabac85d72f77a7497, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114172064495205902
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -231,7 +243,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Aim: {fileID: 1400898475652526}
-  MineSatelitesPool: []
+  MineSatelitesCords: []
   MineSateliteCounter: 0
   OnMineSateliteCreate:
     m_PersistentCalls:
@@ -260,9 +272,11 @@ MonoBehaviour:
   ownershipTransfer: 0
   ObservedComponents:
   - {fileID: 4464676376083970}
+  - {fileID: 114172064495205902}
+  - {fileID: 114111332350551422}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 0
-  instantiationId: -1
+  viewIdField: 1
+  instantiationId: 1
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &114867094956571068
@@ -287,8 +301,8 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 4910224401670714}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 0
-  instantiationId: -1
+  viewIdField: 2
+  instantiationId: 2
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &114972101467060506
@@ -302,7 +316,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 924de7f1bef2440a7b3a2f91f9d2a4de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rotationFactor: 75
+  _rotationFactor: 25
   _mainCameraCenter: {fileID: 1609645772991304}
   _aimPoint: {fileID: 1400898475652526}
   _camera: {fileID: 1700661150182396}

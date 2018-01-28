@@ -4,12 +4,26 @@ using UnityEngine;
 
 public class Satelite : MonoBehaviour
 {
+    public PhotonView MyView;
+    public Material MyMaterial;
+    public MeshRenderer mr;
+    
     [HideInInspector]
     public Vector2 cords;
 
     Renderer rend;
     Ray ray;
     MeshCollider meshCollider;
+
+    private void Start()
+    {
+        if (MyView.isMine)
+        {
+            mr.sharedMaterial = MyMaterial;
+        }
+    }
+
+
     public void Setup()
     {
         
@@ -17,7 +31,7 @@ public class Satelite : MonoBehaviour
         RaycastHit hit;
         if (!Physics.Raycast(transform.position,transform.forward,out hit,50f))
         {
-            Debug.Log("brak hitu");
+            Debug.LogError("brak hitu");
             return;
         }
         //Debug.Log(hit.transform.gameObject.name);

@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
 	
-	public float _rotationFactor = 1f;
+	public float _rotationFactor = 0.1f;
 	
 	[SerializeField]
 	private GameObject _mainCameraCenter;

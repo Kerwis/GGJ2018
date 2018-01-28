@@ -7,13 +7,26 @@
       <e p="Assembly-CSharp-firstpass.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
+        <e p="[Materials]" t="Include">
+          <e p="NewUnlitShader.shader" t="Include" />
+        </e>
         <e p="[Scripts]" t="Include">
           <e p="Button" t="Include">
             <e p="MenuButton.cs" t="Include" />
             <e p="MyButton.cs" t="Include" />
           </e>
+          <e p="CameraController.cs" t="Include" />
+          <e p="ChangeTextColor.cs" t="Include" />
           <e p="GameState.cs" t="Include" />
           <e p="GameStateManager.cs" t="Include" />
+          <e p="InGameManager.cs" t="Include" />
+          <e p="MainController.cs" t="Include" />
+          <e p="Marek" t="Include">
+            <e p="Satelite.cs" t="Include" />
+            <e p="SatMenager.cs" t="Include" />
+            <e p="Singleton.cs" t="Include" />
+            <e p="TrianglePainter.cs" t="Include" />
+          </e>
           <e p="MultiPlayer" t="Include">
             <e p="Menu" t="Include">
               <e p="MultiMenu.cs" t="Include" />
@@ -63,6 +76,8 @@
               </e>
             </e>
           </e>
+          <e p="SatelliteSpawner.cs" t="Include" />
+          <e p="Stering.cs" t="Include" />
           <e p="UI" t="Include">
             <e p="UIAnimation.cs" t="Include" />
           </e>
