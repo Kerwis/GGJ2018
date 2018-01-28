@@ -45,4 +45,5 @@ MonoBehaviour:
   - RPC_CreatePlayerLabel
   - CreatePlayer
   - CreateSatellite
+  - CheckDrow
   DisableAutoOpenWizard: 1

@@ -8,6 +8,8 @@ using Satelites;
 public class InGameManager : Singleton<InGameManager> {
 
     //int initialCash = 15;
+    public RectTransform winP;
+    public RectTransform loseP;
     public Text myProgressT;
     public Text myCashT;
     public Text myEarningsT;
@@ -17,7 +19,7 @@ public class InGameManager : Singleton<InGameManager> {
 
 
     int sateliteCost= 15;
-    int winCost;
+    int winCost=10000;
 
     int areaEarningsRatio = 10;
 
@@ -54,6 +56,8 @@ public class InGameManager : Singleton<InGameManager> {
         //forarea
         //SatMenager.mySatelliteSpawners.myCash.myEarnings+= SatMenager.Instance.myArea * areaEarningsRatio;
         SatMenager.mySatelliteSpawners.myCash.myEarnings += TP.GetPlayerPixelCount()/areaEarningsRatio;
+        SatMenager.mySatelliteSpawners.myCash.myEarnings += 3*SatMenager.mySatelliteSpawners.MineSateliteCounter;
+
         //areaEarningsRatio *= 4;
         //Debug.Log(SatMenager.mySatelliteSpawners.myCash.myEarnings);
         UpdateTexts();
@@ -92,13 +96,21 @@ public class InGameManager : Singleton<InGameManager> {
 
     void Win()
     {
-        Debug.Log("u win");
+        winP.gameObject.SetActive(true);
+        SatMenager.mySatelliteSpawners.myView.RPC(Lose, PhotonTargets.Others);
+
         //onWin;
+    }
+
+    [PunRPC]
+    void Lose()
+    {
+        loseP.gameObject.SetActive(true);
     }
 
     void UpdateTexts()
     {
-        myProgressT.text = SatMenager.mySatelliteSpawners.myCash.myMoney+"$" +" / 1000$";
+        myProgressT.text = SatMenager.mySatelliteSpawners.myCash.myMoney+"$" +" / 10000$";
         myCashT.text = SatMenager.mySatelliteSpawners.myCash.myMoney + "$";
         myEarningsT.text = "+" + SatMenager.mySatelliteSpawners.myCash.myEarnings + "$";
         mySateliteCostT.text = sateliteCost + "$";
@@ -109,7 +121,7 @@ public class InGameManager : Singleton<InGameManager> {
         myCashT.text = cash + "$";
         SatMenager.mySatelliteSpawners.myCash.myMoney = 110;
         myEarningsT.text = "+" + earn + "$";
-        SatMenager.mySatelliteSpawners.myCash.myEarnings = 0;
+        SatMenager.mySatelliteSpawners.myCash.myEarnings = 3;
         mySateliteCostT.text = cost + "$";
         sateliteCost = 15;
     }
