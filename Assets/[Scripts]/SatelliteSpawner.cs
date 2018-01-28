@@ -63,9 +63,16 @@ namespace Satelites
 			{
 				CreateSatellite();
 			}
-            myView.RPC("CheckDrow", PhotonTargets.All);
+			SendRPCszpachla();
+			Invoke("SendRPCszpachla", 0.5f);
 		}
 
+		private void SendRPCszpachla()
+		{
+			
+			myView.RPC("CheckDrow", PhotonTargets.All);
+		}
+		
 		[PunRPC]
 		private void CheckDrow()
 		{			
