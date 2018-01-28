@@ -19,14 +19,10 @@ public class InGameManager : MonoBehaviour {
     int winCost=500;
     int myCash=15;
     int myEarnings=1;
+    int myArea=0;
     int sateliteEarnings = 1;
 
     int areaEarningsRatio = 1;
-
-    int oppCash = 0;
-    int oppEarnings = 0;
-    int oppSatCost = 0;
-    int oppWinCost = 0;
 
     private void OnEnable()
     {
@@ -71,7 +67,7 @@ public class InGameManager : MonoBehaviour {
         myCash +=myEarnings;
         UpdateTexts();
     }
-
+    void GetArea() { }
 
     void Win()
     {

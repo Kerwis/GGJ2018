@@ -257,10 +257,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 221b93dd65cb6f94d85f0709173d4726, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mineColor: {r: 0.23606072, g: 0.5955882, b: 0.18831098, a: 0.191}
-  enemyColor: {r: 0, g: 0, b: 0, a: 0}
-  copy: {fileID: 2800000, guid: 0341c3836a17c784096a9beb4421fcef, type: 3}
-  globeTexture: {fileID: 2800000, guid: 1bdfbf15f6abec34e9bb38e2d81fcc84, type: 3}
+  mineColor: {r: 1, g: 0.93103445, b: 0, a: 0.7058824}
+  enemyColor: {r: 1, g: 0, b: 0, a: 0.7058824}
+  copy: {fileID: 2800000, guid: c16f841e15a528d4ca51732e952e514b, type: 3}
+  globeTexture: {fileID: 2800000, guid: ff20aea6554455344a8aa679dfb98d18, type: 3}
 --- !u!114 &114867094956571068
 MonoBehaviour:
   m_ObjectHideFlags: 1
