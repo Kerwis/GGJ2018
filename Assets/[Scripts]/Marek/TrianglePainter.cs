@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Satelites
 {
-    public class TrianglePainter : Singleton<TrianglePainter>
+    public class TrianglePainter : MonoBehaviour
     {
         List<Vector3> dontRedrawThisMine = new List<Vector3>();
         List<Vector3> dontRedrawThisOpp = new List<Vector3>();
@@ -15,9 +15,19 @@ namespace Satelites
         public Texture2D copy;
         public Texture2D globeTexture;
         Color32[] newTex;
+        Color[] Buff;
+        int GminX, GmaxX, GminY, GmaxY;
+        int allPixels;
 
-        public TrianglePainter()
+        
+
+        public int GetPlayerPixelCount()
         {
+            
+            
+            //find min max x y
+            Buff = globeTexture.GetPixels(GminX, GminY, GmaxX - GminX, GmaxY - GminY);
+            return allPixels;
         }
 
         private void OnEnable()
@@ -41,6 +51,7 @@ namespace Satelites
         }
         public void TurnDraw()
         {
+            allPixels = 0;
             dontRedrawThisMine.Clear();
             dontRedrawThisOpp.Clear();
             newTex = copy.GetPixels32();
@@ -48,6 +59,7 @@ namespace Satelites
             IterateTris();
             globeTexture.SetPixels32(newTex);
             globeTexture.Apply();
+            InGameManager.Instance.UpdateEarnings();
 
         }
 
@@ -98,7 +110,7 @@ namespace Satelites
                         if (CheckIfValid(i, j, k)) {
                             
                             DrawTris(i, j, k, true);
-                            Debug.Log(i +" "+ j + " " + k);
+                            //Debug.Log(i +" "+ j + " " + k);
                         }
 
                     }
@@ -238,8 +250,10 @@ namespace Satelites
                         Vector2 v = new Vector2(i, j);
                         if (IsPointInPolygon(v, trio))
                         {
+
                             newTex[(int)v.y * globeTexture.height + (int)v.x] = c;
 
+                            //allPixels++;
                         }
 
                     }
@@ -264,6 +278,7 @@ namespace Satelites
                         if (IsPointInPolygon(v, trio))
                         {
                             newTex[(int)v.y * globeTexture.height + (int)v.x] = c;
+                           
 
                         }
 

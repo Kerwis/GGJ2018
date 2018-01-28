@@ -8,7 +8,7 @@ namespace Satelites
 {
 	public class SatelliteSpawner : MonoBehaviour
 	{
-
+        TrianglePainter TP;
 		[SerializeField] public GameObject Aim;
 
 		public List<Vector2> MineSatelitesCords;
@@ -20,8 +20,8 @@ namespace Satelites
 
 		private void Start()
 		{
-
-			myCash = GetComponent<Cash>();
+            TP = GameObject.Find("MainController").GetComponentInChildren<TrianglePainter>();
+            myCash = GetComponent<Cash>();
 			
 			#region EventsInit
 
@@ -54,7 +54,10 @@ namespace Satelites
 			{
 				CreateSatellite();
 			}
-			TrianglePainter.Instance.TurnDraw();
+            
+                TP.TurnDraw();
+            //else
+               // TrianglePainter.Instance = new TrianglePainter();
 		}
 
 		[PunRPC]
@@ -113,6 +116,7 @@ namespace Satelites
 			if (Input.GetKeyDown(KeyCode.Space) && OnMineSateliteCreate != null)
 			{
 				OnMineSateliteCreate.Invoke();
+                InGameManager.Instance.BuySatelite();
 			}
 			if (Input.GetKeyDown((KeyCode.R)))
 			{
