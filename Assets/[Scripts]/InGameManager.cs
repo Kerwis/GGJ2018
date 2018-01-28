@@ -16,7 +16,7 @@ public class InGameManager : Singleton<InGameManager> {
     TrianglePainter TP;
 
 
-    int sateliteCost;
+    int sateliteCost= 15;
     int winCost;
 
     int areaEarningsRatio = 10;
@@ -70,6 +70,7 @@ public class InGameManager : Singleton<InGameManager> {
     }
     public void BuySatelite()
     {
+        Debug.Log("kupuj");
         if (SatMenager.mySatelliteSpawners.myCash.myMoney >= sateliteCost)
         {
             SatMenager.mySatelliteSpawners.OnMineSateliteCreate.Invoke();

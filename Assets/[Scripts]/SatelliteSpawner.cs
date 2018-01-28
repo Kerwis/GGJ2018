@@ -124,10 +124,13 @@ namespace Satelites
 
 		// Update is called once per frame
 		void Update()
-		{
-			if (Input.GetKeyDown(KeyCode.Space) && OnMineSateliteCreate != null)
+        {
+            if (!myView.isMine)
+                return;
+            if (Input.GetKeyDown(KeyCode.Space) && OnMineSateliteCreate != null)
 			{
                 InGameManager.Instance.BuySatelite();
+                Debug.Log("SPACE");
 			}
 			if (Input.GetKeyDown((KeyCode.R)))
 			{
