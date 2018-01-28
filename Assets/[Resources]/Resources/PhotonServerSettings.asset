@@ -44,4 +44,5 @@ MonoBehaviour:
   - TaggedPlayer
   - RPC_CreatePlayerLabel
   - CreatePlayer
+  - CreateSatellite
   DisableAutoOpenWizard: 1

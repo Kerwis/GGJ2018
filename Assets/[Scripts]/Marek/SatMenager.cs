@@ -27,21 +27,14 @@ namespace Satelites
         public UnityEvent OnOpponentSateliteDestroy;
 
         public SatMenager() { }
+
+        public PhotonView myView;
         
 
         private void OnEnable()
         {
             MineSateliteCounter = 0;
             OpponentSateliteCounter = 0;
-
-            foreach (Satelite o in MineSatelitesPool)
-            {
-                o.gameObject.SetActive(false);
-            }
-            foreach (Satelite o in OpponentSatelitesPool)
-            {
-                o.gameObject.SetActive(false);
-            }
 
             #region EventsInit
             if (OnMineSateliteCreate == null)
@@ -79,14 +72,29 @@ namespace Satelites
         }
         void CreateMineSatelite()
         {
-            if (MineSateliteCounter == MineSatelitesPool.Count)
-                return;
+            //TODO Add check max satelite
             
-            MineSateliteCounter++;
-            MineSatelitesPool[MineSateliteCounter - 1].gameObject.SetActive(true);
-            SetupSatelite(MineSatelitesPool[MineSateliteCounter - 1]);
+            myView.RPC("CreateSatellite", PhotonTargets.All);
+            
+        }
+
+        [PunRPC]
+        private void CreateSatellite()
+        {
+            GameObject go = PhotonNetwork.Instantiate("Satelite", Vector3.zero, Quaternion.identity, 0);
+            Satelite sat = go.GetComponent<Satelite>();
+            if (myView.isMine)
+            {
+                MineSatelitesPool.Add(sat);
+                MineSateliteCounter++;
+            }
+            else
+            {
+                OpponentSatelitesPool.Add(sat);
+                MineSateliteCounter++;
+            }
+            SetupSatelite(sat);
             TrianglePainter.Instance.TurnDraw();
-            
         }
 
         private void SetupSatelite(Satelite sat)
@@ -95,42 +103,41 @@ namespace Satelites
             sat.Setup();
         }
 
+        //TODO
         void DestroyMineSatelite()
         {
             if (satToDestroy == null)
                 return;
             if (MineSateliteCounter == 0)
                 return;
-            if (!MineSatelitesPool.Contains(satToDestroy))
+            //if (!MineSatelitesPool.Contains(satToDestroy))
                 return;
-            int j = MineSatelitesPool.IndexOf(satToDestroy);
-            MineSatelitesPool[j] = MineSatelitesPool[MineSateliteCounter - 1];
-            MineSatelitesPool.RemoveAt(MineSateliteCounter - 1);
+            //int j = MineSatelitesPool.IndexOf(satToDestroy);
+            //MineSatelitesPool[j] = MineSatelitesPool[MineSateliteCounter - 1];
+            //MineSatelitesPool.RemoveAt(MineSateliteCounter - 1);
             MineSateliteCounter--;
 
         }
 
         void CreateOpponentSatelite()
         {
-            if (OpponentSateliteCounter == OpponentSatelitesPool.Count)
-                return;
-
-            OpponentSateliteCounter++;
-            OpponentSatelitesPool[OpponentSateliteCounter - 1].gameObject.SetActive(true);
-            SetupSatelite(OpponentSatelitesPool[OpponentSateliteCounter - 1]);
+            //Raczej tego nie potrzeba
+            
             TrianglePainter.Instance.TurnDraw();
         }
         void DestroyOpponentSatelite()
         {
+            //Też tego nie potrzeba
+            
             if (satToDestroy == null)
                 return;
             if (OpponentSateliteCounter == 0)
                 return;
-            if (!OpponentSatelitesPool.Contains(satToDestroy))
+            //if (!OpponentSatelitesPool.Contains(satToDestroy))
                 return;
-            int j = OpponentSatelitesPool.IndexOf(satToDestroy);
-            OpponentSatelitesPool[j] = OpponentSatelitesPool[OpponentSateliteCounter - 1];
-            OpponentSatelitesPool.RemoveAt(OpponentSateliteCounter - 1);
+            //int j = OpponentSatelitesPool.IndexOf(satToDestroy);
+            //OpponentSatelitesPool[j] = OpponentSatelitesPool[OpponentSateliteCounter - 1];
+            //OpponentSatelitesPool.RemoveAt(OpponentSateliteCounter - 1);
             OpponentSateliteCounter--;
         }
 
@@ -146,10 +153,10 @@ namespace Satelites
         public void DestroySatelite(Satelite satToDestroy)
         {
             this.satToDestroy = satToDestroy;
-            if (OpponentSatelitesPool.Contains(satToDestroy))
-                OnOpponentSateliteDestroy.Invoke();
-            if (MineSatelitesPool.Contains(satToDestroy))
-                OnMineSateliteDestroy.Invoke();
+            //if (OpponentSatelitesPool.Contains(satToDestroy))
+            //    OnOpponentSateliteDestroy.Invoke();
+            //if (MineSatelitesPool.Contains(satToDestroy))
+            //    OnMineSateliteDestroy.Invoke();
 
         }
     }
