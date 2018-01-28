@@ -82,7 +82,7 @@ namespace Satelites
         private void CreateSatellite()
         {
             GameObject go = PhotonNetwork.Instantiate("Satelite", Vector3.zero, Quaternion.identity, 0);
-            Satelite sat = go.GetComponent<Satelite>();
+            Satelite sat = go.GetComponentInChildren<Satelite>();
             if (myView.isMine)
             {
                 MineSatelitesPool.Add(sat);
