@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 namespace Satelites
 {
@@ -15,7 +16,7 @@ namespace Satelites
 
 		public UnityEvent OnMineSateliteCreate;
 
-		private void OnEnable()
+		private void Start()
 		{
 			#region EventsInit
 
@@ -31,6 +32,7 @@ namespace Satelites
 			else
 			{
 				SatMenager.enemySatelliteSpawners = this;
+				Debug.Log("Add enemy!!!");
 			}
 
 			#endregion
@@ -45,7 +47,7 @@ namespace Satelites
 			Debug.Log("add " + myView.isMine);
 			if (myView.isMine)
 			{
-				myView.RPC("CreateSatellite", PhotonTargets.All);
+				CreateSatellite();
 			}
 		}
 
@@ -67,13 +69,32 @@ namespace Satelites
 		{
 			if (stream.isWriting)
 			{
-				stream.SendNext(MineSatelitesPool);
-				stream.SendNext(MineSatelitesPool);
+				stream.SendNext(MineSateliteCounter);
+				SendList(MineSatelitesPool, stream);
 			}
 			else
-			{
-				MineSatelitesPool = (List<Satelite>) stream.ReceiveNext();
+			{				
 				MineSateliteCounter = (int) stream.ReceiveNext();
+				MineSatelitesPool = ReciveList<Satelite>(stream);
+			}
+		}
+
+		private List<T> ReciveList <T> (PhotonStream stream)
+		{
+			
+			List<T> tmp = new List<T>();
+			for (int i = 0; i < MineSateliteCounter; i++)
+			{
+				tmp.Add((T)stream.ReceiveNext());
+			}
+			return tmp;
+		}
+
+		private void SendList(List<Satelite> listToSend, PhotonStream stream)
+		{
+			for (int i = 0; i < MineSateliteCounter; i++)
+			{
+				stream.SendNext(listToSend[i]);
 			}
 		}
 
@@ -89,8 +110,12 @@ namespace Satelites
 		{
 			if (Input.GetKeyDown(KeyCode.Space) && OnMineSateliteCreate != null)
 			{
-				Debug.Log(MineSateliteCounter);
 				OnMineSateliteCreate.Invoke();
+			}
+			if (Input.GetKeyDown((KeyCode.R)))
+			{
+				SceneManager.UnloadSceneAsync("main");
+				SceneManager.LoadSceneAsync("main");
 			}
 		}
 		

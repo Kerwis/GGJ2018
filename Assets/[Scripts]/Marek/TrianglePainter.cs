@@ -35,7 +35,6 @@ namespace Satelites
         private void Start()
         {
             newTex = globeTexture.GetPixels32();
-            Debug.Log(newTex.Length);
             
             //MainController.NextTurn +=  
             //OnTurnEnd.AddListener(drawTris);
@@ -77,7 +76,6 @@ namespace Satelites
             //MOJE
             if (SatMenager.mySatelliteSpawners.MineSateliteCounter < 3)
             {
-                Debug.Log("me below 3 = "+ SatMenager.mySatelliteSpawners.MineSateliteCounter);
                 return;
             }
 
@@ -94,9 +92,9 @@ namespace Satelites
                 }
             }
             //Przeciwnik
+            Debug.Log("SatMenager.enemySatelliteSpawners.MineSateliteCounter " + SatMenager.enemySatelliteSpawners.MineSateliteCounter);
             if (SatMenager.enemySatelliteSpawners.MineSateliteCounter < 3)
             {
-                Debug.Log("en below 3 = " + SatMenager.enemySatelliteSpawners.MineSateliteCounter);
                 return;
             }
 

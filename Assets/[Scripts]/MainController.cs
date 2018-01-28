@@ -30,7 +30,6 @@ public class MainController : MonoBehaviour
 
 	private void SpownPlayer()
 	{
-		Debug.Log("Spown");
 		if (PhotonNetwork.isMasterClient)
 		{
 			myView.RPC("CreatePlayer", PhotonTargets.All);

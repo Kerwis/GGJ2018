@@ -426,6 +426,7 @@ MonoBehaviour:
   ownershipTransfer: 0
   ObservedComponents:
   - {fileID: 4461942131218156}
+  - {fileID: 114869991647455456}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1
@@ -442,4 +443,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 941d7f5877b75b7479f5ebde48376463, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MyView: {fileID: 114261144111060404}
+  MyMaterial: {fileID: 2100000, guid: a33facfd0e64d4f88ad9cd296030d954, type: 2}
+  mr: {fileID: 23525078823948710}
   cords: {x: 0, y: 0}
