@@ -186,6 +186,11 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &480220619 stripped
+RectTransform:
+  m_PrefabParentObject: {fileID: 224702029864566126, guid: a7656b9ec2943411ab2e6ae806c926ef,
+    type: 2}
+  m_PrefabInternal: {fileID: 718240087}
 --- !u!1001 &718240087
 Prefab:
   m_ObjectHideFlags: 0
@@ -283,46 +288,6 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 224477202375878492, guid: a7656b9ec2943411ab2e6ae806c926ef,
-        type: 2}
-      propertyPath: m_AnchorMin.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224477202375878492, guid: a7656b9ec2943411ab2e6ae806c926ef,
-        type: 2}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224477202375878492, guid: a7656b9ec2943411ab2e6ae806c926ef,
-        type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: 255.45
-      objectReference: {fileID: 0}
-    - target: {fileID: 224477202375878492, guid: a7656b9ec2943411ab2e6ae806c926ef,
-        type: 2}
-      propertyPath: m_AnchoredPosition.y
-      value: -62.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 224084443211426932, guid: a7656b9ec2943411ab2e6ae806c926ef,
-        type: 2}
-      propertyPath: m_AnchorMin.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224084443211426932, guid: a7656b9ec2943411ab2e6ae806c926ef,
-        type: 2}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224084443211426932, guid: a7656b9ec2943411ab2e6ae806c926ef,
-        type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: 255.45
-      objectReference: {fileID: 0}
-    - target: {fileID: 224084443211426932, guid: a7656b9ec2943411ab2e6ae806c926ef,
-        type: 2}
-      propertyPath: m_AnchoredPosition.y
-      value: -187.5
-      objectReference: {fileID: 0}
     - target: {fileID: 114655859717351636, guid: a7656b9ec2943411ab2e6ae806c926ef,
         type: 2}
       propertyPath: viewIdField
@@ -412,9 +377,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RoomLabel: {fileID: 1869425683435750, guid: 9b1d243d6d47a4043885dbdcaf2e1c58, type: 2}
-  RoomsParent: {fileID: 0}
-  PlayerParent: {fileID: 0}
-  Info: {fileID: 0}
+  RoomsParent: {fileID: 1443304600}
+  PlayerParent: {fileID: 480220619}
+  Info: {fileID: 1275187663}
   otherPlayersLable: []
 --- !u!114 &802413566
 MonoBehaviour:
@@ -545,6 +510,17 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: becc1cfd61e3f594cb84248fdb03c73c, type: 3}
   m_IsPrefabParent: 0
+--- !u!114 &1275187663 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114620679649669640, guid: a7656b9ec2943411ab2e6ae806c926ef,
+    type: 2}
+  m_PrefabInternal: {fileID: 718240087}
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+--- !u!224 &1443304600 stripped
+RectTransform:
+  m_PrefabParentObject: {fileID: 224061243340529264, guid: a7656b9ec2943411ab2e6ae806c926ef,
+    type: 2}
+  m_PrefabInternal: {fileID: 718240087}
 --- !u!1 &1788058100 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100000, guid: becc1cfd61e3f594cb84248fdb03c73c, type: 3}
