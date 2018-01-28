@@ -76,7 +76,7 @@ public class InGameManager : MonoBehaviour {
         {
             SatMenager.mySatelliteSpawners.OnMineSateliteCreate.Invoke();
             SatMenager.mySatelliteSpawners.myCash.myMoney -= sateliteCost;
-            sateliteCost *= 2;
+            //sateliteCost = (int)sateliteCost * 1.1f;
             ///SatMenager.mySatelliteSpawners.OnMineSateliteCreate.Invoke();
             UpdateEarnings();
             
