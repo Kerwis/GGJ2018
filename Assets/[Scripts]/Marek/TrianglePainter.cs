@@ -133,7 +133,7 @@ namespace Satelites
                 {
                     for (int k = j + 1; k < SatMenager.enemySatelliteSpawners.MineSateliteCounter; k++)
                     {
-                        if(CheckIfValid(i, j, k, SatMenager.mySatelliteSpawners))
+                        if(CheckIfValid(i, j, k, SatMenager.enemySatelliteSpawners))
                             DrawTris(i, j, k, false);
 
                     }
