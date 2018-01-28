@@ -3413,6 +3413,27 @@ MonoBehaviour:
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
   m_ChildControlHeight: 0
+--- !u!1 &1788058100 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100000, guid: becc1cfd61e3f594cb84248fdb03c73c, type: 3}
+  m_PrefabInternal: {fileID: 1085189025}
+--- !u!95 &1788058104
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1788058100}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ac8d3790a6659401ab8851cf9daba2fd, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &1807903390
 GameObject:
   m_ObjectHideFlags: 0

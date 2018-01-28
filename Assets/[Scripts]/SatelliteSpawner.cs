@@ -54,6 +54,7 @@ namespace Satelites
 			{
 				CreateSatellite();
 			}
+			TrianglePainter.Instance.TurnDraw();
 		}
 
 		[PunRPC]
@@ -64,7 +65,6 @@ namespace Satelites
 			SetupSatelite(sat);		
 			MineSateliteCounter++;
 			MineSatelitesCords.Add(sat.cords);
-			TrianglePainter.Instance.TurnDraw();
 		}
 
 		void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
