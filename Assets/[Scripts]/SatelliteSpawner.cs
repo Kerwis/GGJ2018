@@ -116,6 +116,7 @@ namespace Satelites
 			if (Input.GetKeyDown(KeyCode.Space) && OnMineSateliteCreate != null)
 			{
 				OnMineSateliteCreate.Invoke();
+                InGameManager.Instance.BuySatelite();
 			}
 			if (Input.GetKeyDown((KeyCode.R)))
 			{

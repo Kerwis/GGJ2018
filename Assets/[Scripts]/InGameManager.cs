@@ -19,7 +19,7 @@ public class InGameManager : Singleton<InGameManager> {
     int sateliteCost=10;
     int winCost=500;
 
-    int areaEarningsRatio = 1;
+    int areaEarningsRatio = 10;
 
     public InGameManager()
     {
@@ -27,6 +27,12 @@ public class InGameManager : Singleton<InGameManager> {
 
     private void OnEnable()
     {
+        myProgressT = GameObject.Find("WinText").GetComponent<Text>();
+        myCashT = GameObject.Find("cash").GetComponent<Text>();
+        myEarningsT = GameObject.Find("earnings").GetComponent<Text>();
+        mySateliteCostT = GameObject.Find("satCost").GetComponent<Text>();
+        buySat = GameObject.Find("Button").GetComponent<Button>();
+
         TP = GameObject.Find("MainController").GetComponentInChildren<TrianglePainter>();
         buySat.onClick.AddListener(BuySatelite);
         MainController.NextTurn+=GetPaid;
@@ -42,6 +48,7 @@ public class InGameManager : Singleton<InGameManager> {
         //forarea
         //SatMenager.mySatelliteSpawners.myCash.myEarnings+= SatMenager.Instance.myArea * areaEarningsRatio;
         SatMenager.mySatelliteSpawners.myCash.myEarnings += TP.GetPlayerPixelCount()/areaEarningsRatio;
+        //areaEarningsRatio *= 4;
         Debug.Log(SatMenager.mySatelliteSpawners.myCash.myEarnings);
         UpdateTexts();
 
@@ -57,8 +64,9 @@ public class InGameManager : Singleton<InGameManager> {
     {
         if (SatMenager.mySatelliteSpawners.myCash.myMoney >= sateliteCost)
         {
+            SatMenager.mySatelliteSpawners.OnMineSateliteCreate.Invoke();
             SatMenager.mySatelliteSpawners.myCash.myMoney -= sateliteCost;
-            sateliteCost += SatMenager.mySatelliteSpawners.MineSateliteCounter * 5;
+            sateliteCost *= 2;
             SatMenager.mySatelliteSpawners.OnMineSateliteCreate.Invoke();
             UpdateEarnings();
             

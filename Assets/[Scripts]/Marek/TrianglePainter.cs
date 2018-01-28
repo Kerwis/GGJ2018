@@ -15,15 +15,19 @@ namespace Satelites
         public Texture2D copy;
         public Texture2D globeTexture;
         Color32[] newTex;
-        Color32[] Buff;
+        Color[] Buff;
+        int GminX, GmaxX, GminY, GmaxY;
         int allPixels;
 
         
 
         public int GetPlayerPixelCount()
         {
+            
+            
+            //find min max x y
+            Buff = globeTexture.GetPixels(GminX, GminY, GmaxX - GminX, GmaxY - GminY);
             return allPixels;
-           
         }
 
         private void OnEnable()
@@ -106,7 +110,7 @@ namespace Satelites
                         if (CheckIfValid(i, j, k)) {
                             
                             DrawTris(i, j, k, true);
-                            Debug.Log(i +" "+ j + " " + k);
+                            //Debug.Log(i +" "+ j + " " + k);
                         }
 
                     }
@@ -246,8 +250,10 @@ namespace Satelites
                         Vector2 v = new Vector2(i, j);
                         if (IsPointInPolygon(v, trio))
                         {
+
                             newTex[(int)v.y * globeTexture.height + (int)v.x] = c;
-                            allPixels++;
+
+                            //allPixels++;
                         }
 
                     }
