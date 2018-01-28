@@ -16,7 +16,7 @@ namespace Satelites
 
 		public UnityEvent OnMineSateliteCreate;
 
-		private Cash myCash;
+		public Cash myCash;
 
 		private void Start()
 		{

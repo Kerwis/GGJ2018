@@ -17,10 +17,6 @@ public class InGameManager : MonoBehaviour {
 
     int sateliteCost=10;
     int winCost=500;
-    int myCash=15;
-    int myEarnings=1;
-    int myArea=0;
-    int sateliteEarnings = 1;
 
     int areaEarningsRatio = 1;
 
@@ -33,27 +29,27 @@ public class InGameManager : MonoBehaviour {
     //eventy
     public void UpdateEarnings()
     {
-        myEarnings = 1;
+        SatMenager.mySatelliteSpawners.myCash.myEarnings = 1;
         //foreachsatelite
-        myEarnings += SatMenager.mySatelliteSpawners.MineSateliteCounter * sateliteEarnings;
+        SatMenager.mySatelliteSpawners.myCash.myEarnings += SatMenager.mySatelliteSpawners.MineSateliteCounter * SatMenager.mySatelliteSpawners.myCash.sateliteEarnings;
         //forarea
-        myEarnings+= SatMenager.Instance.myArea * areaEarningsRatio;
+        SatMenager.mySatelliteSpawners.myCash.myEarnings+= SatMenager.Instance.myArea * areaEarningsRatio;
 
         UpdateTexts();
 
     }
     public void GainEarnings()
     {
-        myCash += myEarnings;
-        if (myCash >= winCost)
+        SatMenager.mySatelliteSpawners.myCash.myMoney += SatMenager.mySatelliteSpawners.myCash.myEarnings;
+        if (SatMenager.mySatelliteSpawners.myCash.myMoney >= winCost)
             Win();
         
     }
     public void BuySatelite()
     {
-        if (myCash >= sateliteCost)
+        if (SatMenager.mySatelliteSpawners.myCash.myMoney >= sateliteCost)
         {
-            myCash -= sateliteCost;
+            SatMenager.mySatelliteSpawners.myCash.myMoney -= sateliteCost;
             sateliteCost += SatMenager.mySatelliteSpawners.MineSateliteCounter * 5;
             SatMenager.mySatelliteSpawners.OnMineSateliteCreate.Invoke();
             UpdateEarnings();
@@ -64,7 +60,7 @@ public class InGameManager : MonoBehaviour {
 
     void GetPaid(int nrTurn)
     {
-        myCash +=myEarnings;
+        SatMenager.mySatelliteSpawners.myCash.myMoney += SatMenager.mySatelliteSpawners.myCash.myEarnings;
         UpdateTexts();
     }
     void GetArea() { }
@@ -77,9 +73,9 @@ public class InGameManager : MonoBehaviour {
 
     void UpdateTexts()
     {
-        myProgressT.text = myCash+"$" +" / 1000$";
-        myCashT.text = myCash + "$";
-        myEarningsT.text = "+" + myEarnings + "$";
+        myProgressT.text = SatMenager.mySatelliteSpawners.myCash.myMoney+"$" +" / 1000$";
+        myCashT.text = SatMenager.mySatelliteSpawners.myCash.myMoney + "$";
+        myEarningsT.text = "+" + SatMenager.mySatelliteSpawners.myCash.myEarnings + "$";
         mySateliteCostT.text = sateliteCost + "$";
     }
 
