@@ -76,13 +76,13 @@ namespace Satelites
             //MOJE
             if (SatMenager.mySatelliteSpawners.MineSateliteCounter < 3)
             {
-                for (int i = 1; i < alowedDistance+1; i++)
+                for (int i = 1; i < alowedDistance/2+1; i++)
                 {
-                    newTex[(int)SatMenager.mySatelliteSpawners.MineSatelitesCords[0].y*globeTexture.width + (int)SatMenager.mySatelliteSpawners.MineSatelitesCords[0].x+i] = Color.red;
+                    newTex[((int)SatMenager.mySatelliteSpawners.MineSatelitesCords[0].y*globeTexture.width + (int)SatMenager.mySatelliteSpawners.MineSatelitesCords[0].x)+i] = Color.red;
                 }
-                for (int i = 1; i < alowedDistance + 1; i++)
+                for (int i = 1; i < alowedDistance/2 + 1; i++)
                 {
-                    newTex[(int)(SatMenager.mySatelliteSpawners.MineSatelitesCords[0].y+i) * globeTexture.width + (int)SatMenager.mySatelliteSpawners.MineSatelitesCords[0].x ] = Color.red;
+                    newTex[((int)(SatMenager.mySatelliteSpawners.MineSatelitesCords[0].y) * globeTexture.width + (int)SatMenager.mySatelliteSpawners.MineSatelitesCords[0].x)+(i*globeTexture.width)] = Color.red;
                 }
 
                 return;
@@ -94,8 +94,12 @@ namespace Satelites
                 {
                     for (int k = j + 1; k < SatMenager.mySatelliteSpawners.MineSateliteCounter; k++)
                     {
-                        if (CheckIfValid(i, j, k))
+                        //Debug.Log(i + " " + j + " " + k);
+                        if (CheckIfValid(i, j, k)) {
+                            
                             DrawTris(i, j, k, true);
+                            Debug.Log(i +" "+ j + " " + k);
+                        }
 
                     }
                 }
@@ -104,7 +108,7 @@ namespace Satelites
         void IterateTrisEnemy()
         {
             //Przeciwnik
-            Debug.Log("SatMenager.enemySatelliteSpawners.MineSateliteCounter " + SatMenager.enemySatelliteSpawners.MineSateliteCounter);
+            //Debug.Log("SatMenager.enemySatelliteSpawners.MineSateliteCounter " + SatMenager.enemySatelliteSpawners.MineSateliteCounter);
             if (SatMenager.enemySatelliteSpawners.MineSateliteCounter < 3)
             {
                 return;
@@ -130,17 +134,17 @@ namespace Satelites
             Vector2 CordsB = SatMenager.mySatelliteSpawners.MineSatelitesCords[b];
             Vector2 CordsC = SatMenager.mySatelliteSpawners.MineSatelitesCords[c];
             //check distance between all
-            Debug.Log(Vector2.Distance(CordsA, CordsB));
+            //Debug.Log(Vector2.Distance(CordsA, CordsB));
             if (Vector2.Distance(CordsA, CordsB) > alowedDistance)
             {
                 valid = false;
             }
-            Debug.Log(CordsA+" "+CordsB + " "+Vector2.Distance(CordsA, CordsC));
+           // Debug.Log(CordsA+" "+CordsB + " "+Vector2.Distance(CordsA, CordsC));
             if (Vector2.Distance(CordsA, CordsC) > alowedDistance)
             {
                 valid = false;
             }
-            Debug.Log(Vector2.Distance(CordsC, CordsB));
+            //Debug.Log(Vector2.Distance(CordsC, CordsB));
             if (Vector2.Distance(CordsC, CordsB) > alowedDistance)
             {
                 valid = false;
