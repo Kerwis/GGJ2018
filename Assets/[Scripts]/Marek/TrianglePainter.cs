@@ -14,7 +14,6 @@ namespace Satelites
         public Color enemyColor;
         public Texture2D copy;
         public Texture2D globeTexture;
-        SatMenager SM;
         Color32[] newTex;
 
         public TrianglePainter()
@@ -37,7 +36,6 @@ namespace Satelites
         {
             newTex = globeTexture.GetPixels32();
             Debug.Log(newTex.Length);
-            SM = SatMenager.Instance;
             
             //MainController.NextTurn +=  
             //OnTurnEnd.AddListener(drawTris);
@@ -77,17 +75,17 @@ namespace Satelites
         void IterateTris()
         {
             //MOJE
-            if (SM.MineSateliteCounter < 3)
+            if (SatMenager.mySatelliteSpawners.MineSateliteCounter < 3)
             {
-                Debug.Log("me below 3 = "+SM.MineSateliteCounter);
+                Debug.Log("me below 3 = "+ SatMenager.mySatelliteSpawners.MineSateliteCounter);
                 return;
             }
 
-            for (int i = 0; i < SM.MineSateliteCounter; i++)
+            for (int i = 0; i < SatMenager.mySatelliteSpawners.MineSateliteCounter; i++)
             {
-                for (int j = i+1; j < SM.MineSateliteCounter; j++)
+                for (int j = i+1; j < SatMenager.mySatelliteSpawners.MineSateliteCounter; j++)
                 {
-                    for (int k = j+1; k < SM.MineSateliteCounter; k++)
+                    for (int k = j+1; k < SatMenager.mySatelliteSpawners.MineSateliteCounter; k++)
                     {
                         
                         DrawTris(i,j,k,true);
@@ -96,17 +94,17 @@ namespace Satelites
                 }
             }
             //Przeciwnik
-            if (SM.OpponentSateliteCounter < 3)
+            if (SatMenager.enemySatelliteSpawners.MineSateliteCounter < 3)
             {
-                Debug.Log("en below 3 = " + SM.OpponentSateliteCounter);
+                Debug.Log("en below 3 = " + SatMenager.enemySatelliteSpawners.MineSateliteCounter);
                 return;
             }
 
-            for (int i = 0; i < SM.OpponentSateliteCounter; i++)
+            for (int i = 0; i < SatMenager.enemySatelliteSpawners.MineSateliteCounter; i++)
             {
-                for (int j = i + 1; j < SM.OpponentSateliteCounter; j++)
+                for (int j = i + 1; j < SatMenager.enemySatelliteSpawners.MineSateliteCounter; j++)
                 {
-                    for (int k = j + 1; k < SM.OpponentSateliteCounter; k++)
+                    for (int k = j + 1; k < SatMenager.enemySatelliteSpawners.MineSateliteCounter; k++)
                     {
 
                         DrawTris(i, j, k,false);
@@ -123,14 +121,14 @@ namespace Satelites
         {
             if (me)
             {
-                Vector2[] bigThree = new Vector2[] { SM.MineSatelitesPool[q].cords, SM.MineSatelitesPool[w].cords, SM.MineSatelitesPool[e].cords };
+                Vector2[] bigThree = new Vector2[] { SatMenager.mySatelliteSpawners.MineSatelitesPool[q].cords, SatMenager.mySatelliteSpawners.MineSatelitesPool[w].cords, SatMenager.mySatelliteSpawners.MineSatelitesPool[e].cords };
 
                 //check for enemy
 
-                for (int i = 0; i < SM.OpponentSateliteCounter; i++)
+                for (int i = 0; i < SatMenager.enemySatelliteSpawners.MineSateliteCounter; i++)
                 {
 
-                    if (IsPointInPolygon(SM.OpponentSatelitesPool[i].cords, bigThree))
+                    if (IsPointInPolygon(SatMenager.enemySatelliteSpawners.MineSatelitesPool[i].cords, bigThree))
                     {
                         Debug.Log("enemy");
                         //remove from dont redraw
@@ -149,14 +147,14 @@ namespace Satelites
             }
             else
             {
-                Vector2[] bigThree = new Vector2[] { SM.OpponentSatelitesPool[q].cords, SM.OpponentSatelitesPool[w].cords, SM.OpponentSatelitesPool[e].cords };
+                Vector2[] bigThree = new Vector2[] { SatMenager.enemySatelliteSpawners.MineSatelitesPool[q].cords, SatMenager.enemySatelliteSpawners.MineSatelitesPool[w].cords, SatMenager.enemySatelliteSpawners.MineSatelitesPool[e].cords };
 
                 //check for enemy
 
-                for (int i = 0; i < SM.MineSateliteCounter; i++)
+                for (int i = 0; i < SatMenager.mySatelliteSpawners.MineSateliteCounter; i++)
                 {
 
-                    if (IsPointInPolygon(SM.MineSatelitesPool[i].cords, bigThree))
+                    if (IsPointInPolygon(SatMenager.mySatelliteSpawners.MineSatelitesPool[i].cords, bigThree))
                     {
                         Debug.Log("enemy");
                         //remove from dont redraw

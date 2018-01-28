@@ -35,7 +35,7 @@ public class InGameManager : MonoBehaviour {
     {
         myEarnings = 1;
         //foreachsatelite
-        myEarnings += SatMenager.Instance.MineSateliteCounter * sateliteEarnings;
+        myEarnings += SatMenager.mySatelliteSpawners.MineSateliteCounter * sateliteEarnings;
         //forarea
         myEarnings+= SatMenager.Instance.myArea * areaEarningsRatio;
 
@@ -54,8 +54,8 @@ public class InGameManager : MonoBehaviour {
         if (myCash >= sateliteCost)
         {
             myCash -= sateliteCost;
-            sateliteCost += SatMenager.Instance.MineSateliteCounter * 5;
-            SatMenager.Instance.OnMineSateliteCreate.Invoke();
+            sateliteCost += SatMenager.mySatelliteSpawners.MineSateliteCounter * 5;
+            SatMenager.mySatelliteSpawners.OnMineSateliteCreate.Invoke();
             UpdateEarnings();
             
         }
