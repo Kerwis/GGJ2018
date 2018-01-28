@@ -305,6 +305,16 @@ Prefab:
       propertyPath: instantiationId
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114929548983842580, guid: 268f601ab7820400e94cf262e0e200aa,
+        type: 2}
+      propertyPath: winP
+      value: 
+      objectReference: {fileID: 1913697705}
+    - target: {fileID: 114929548983842580, guid: 268f601ab7820400e94cf262e0e200aa,
+        type: 2}
+      propertyPath: loseP
+      value: 
+      objectReference: {fileID: 1913697704}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 268f601ab7820400e94cf262e0e200aa, type: 2}
   m_IsPrefabParent: 0
@@ -405,31 +415,19 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 224639437224726078, guid: f0e89e61887438944907126ebdfedc6c,
-        type: 2}
-      propertyPath: m_AnchorMax.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 224639437224726078, guid: f0e89e61887438944907126ebdfedc6c,
-        type: 2}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1374108991194916, guid: f0e89e61887438944907126ebdfedc6c, type: 2}
-      propertyPath: m_Name
-      value: WinText
-      objectReference: {fileID: 0}
-    - target: {fileID: 1796662170416382, guid: f0e89e61887438944907126ebdfedc6c, type: 2}
-      propertyPath: m_Name
-      value: EarningsText
-      objectReference: {fileID: 0}
-    - target: {fileID: 1846735741227334, guid: f0e89e61887438944907126ebdfedc6c, type: 2}
-      propertyPath: m_Name
-      value: SatCostText
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f0e89e61887438944907126ebdfedc6c, type: 2}
   m_IsPrefabParent: 0
+--- !u!224 &1913697704 stripped
+RectTransform:
+  m_PrefabParentObject: {fileID: 224421686276540606, guid: f0e89e61887438944907126ebdfedc6c,
+    type: 2}
+  m_PrefabInternal: {fileID: 1913697703}
+--- !u!224 &1913697705 stripped
+RectTransform:
+  m_PrefabParentObject: {fileID: 224373661749830354, guid: f0e89e61887438944907126ebdfedc6c,
+    type: 2}
+  m_PrefabInternal: {fileID: 1913697703}
 --- !u!1001 &2106487999
 Prefab:
   m_ObjectHideFlags: 0
