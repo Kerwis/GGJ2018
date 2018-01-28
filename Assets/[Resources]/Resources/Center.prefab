@@ -231,6 +231,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1edda70901da4cabac85d72f77a7497, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myMoney: 0
+  myEarnings: 1
+  myArea: 0
+  sateliteEarnings: 1
 --- !u!114 &114172064495205902
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -250,6 +254,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  myCash: {fileID: 0}
   myView: {fileID: 114749134586381524}
 --- !u!114 &114749134586381524
 MonoBehaviour:
@@ -275,8 +280,8 @@ MonoBehaviour:
   - {fileID: 114172064495205902}
   - {fileID: 114111332350551422}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 1
-  instantiationId: 1
+  viewIdField: 0
+  instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &114867094956571068
@@ -301,8 +306,8 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 4910224401670714}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 2
-  instantiationId: 2
+  viewIdField: 0
+  instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &114972101467060506
