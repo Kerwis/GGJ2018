@@ -97,7 +97,7 @@ public class InGameManager : Singleton<InGameManager> {
     void Win()
     {
         winP.gameObject.SetActive(true);
-        SatMenager.mySatelliteSpawners.myView.RPC(Lose, PhotonTargets.Others);
+        SatMenager.mySatelliteSpawners.myView.RPC("Lose", PhotonTargets.Others);
 
         //onWin;
     }
