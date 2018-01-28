@@ -23,6 +23,8 @@ namespace Satelites
 
         private void OnEnable()
         {
+            mineColor.a=.4f;
+            enemyColor.a = .4f;
             //SatMenager.Instance.OnMineSateliteCreate.AddListener(TurnDraw);
             //SatMenager.Instance.OnOpponentSateliteCreate.AddListener(TurnDraw);
         }
@@ -192,7 +194,7 @@ namespace Satelites
                         Vector2 v = new Vector2(i, j);
                         if (IsPointInPolygon(v, trio))
                         {
-                            newTex[(int)v.y * globeTexture.height + (int)v.x] = mineColor;
+                            newTex[(int)v.y * globeTexture.height + (int)v.x] = c;
 
                         }
 
